@@ -301,7 +301,9 @@
         if (event.data && event.data.tipo === 'jogar-agora') {
           window.perfilPendente = event.data.perfil;
           mostrarTelaCarregamento();
-          iniciarAposCarregamento();
+          // Só entra no jogo se a Unity JÁ estiver pronta; senão, o .then do
+          // createUnityInstance chama iniciarAposCarregamento() quando terminar.
+          if (window.unityPronta) iniciarAposCarregamento();
         }
       });
 

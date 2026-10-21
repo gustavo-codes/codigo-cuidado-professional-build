@@ -1,4 +1,4 @@
-const cacheName = "UFC-Código Cuidado-0.1.3";
+const cacheName = "UFC-Código Cuidado-0.1.4";
 const contentToCache = [
     "Build/gat8profissional.loader.js",
     "Build/gat8profissional.framework.js.br",
@@ -28,6 +28,23 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
     e.respondWith((async function () {
+      const url = e.request.url;
+
+      // Network-first para HTML: garante que o index e o menu sempre venham
+      // atualizados; o cache só é usado se a rede falhar (offline).
+      if (e.request.mode === 'navigate' || url.endsWith('.html')) {
+        try {
+          const rede = await fetch(e.request);
+          const cache = await caches.open(cacheName);
+          cache.put(e.request, rede.clone());
+          return rede;
+        } catch (err) {
+          const offline = await caches.match(e.request);
+          if (offline) return offline;
+          throw err;
+        }
+      }
+
       let response = await caches.match(e.request);
       console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
       if (response) { return response; }
