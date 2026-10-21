@@ -1,4 +1,4 @@
-const cacheName = "UFC-Código Cuidado-0.1.2";
+const cacheName = "UFC-Código Cuidado-0.1.3";
 const contentToCache = [
     "Build/gat8profissional.loader.js",
     "Build/gat8profissional.framework.js.br",
@@ -15,6 +15,14 @@ self.addEventListener('install', function (e) {
       const cache = await caches.open(cacheName);
       console.log('[Service Worker] Caching all: app shell and content');
       await cache.addAll(contentToCache);
+    })());
+});
+
+// Remove caches de versões antigas ao ativar a nova versão do SW.
+self.addEventListener('activate', function (e) {
+    e.waitUntil((async function () {
+        const nomes = await caches.keys();
+        await Promise.all(nomes.filter(n => n !== cacheName).map(n => caches.delete(n)));
     })());
 });
 
