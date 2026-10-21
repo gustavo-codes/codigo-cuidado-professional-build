@@ -290,11 +290,16 @@
           texto.innerText = 'Baixando... ' + pct + '%';
         }
       }
+      function esconderMenu() {
+        var iframe = document.getElementById('iframe-principal');
+        if (iframe) iframe.style.display = 'none';
+      }
       function iniciarAposCarregamento() {
         if (!window.perfilPendente) return;
         var perfil = window.perfilPendente;
         window.perfilPendente = null;
         esconderTelaCarregamento();
+        esconderMenu();
         if (window.DefinePerfilDoJogador) window.DefinePerfilDoJogador(perfil);
       }
       window.addEventListener('message', (event) => {
@@ -416,7 +421,7 @@
           window.DefinePerfilDoJogador = function(perfil) {
               if (window.unityInstance) {
                   try {
-                      window.unityInstance.SendMessage('MenuManager', 'SelecionarPerfil', 'profissional');
+                      window.unityInstance.SendMessage('MenuManager', 'SelecionarPerfil', perfil);
                   } catch(e) {
                       console.warn("SendMessage SelecionarPerfil:", e);
                   }
