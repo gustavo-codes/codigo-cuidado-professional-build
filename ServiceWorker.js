@@ -1,9 +1,9 @@
 const cacheName = "UFC-Código Cuidado-0.1.2";
 const contentToCache = [
     "Build/gat8profissional.loader.js",
-    "Build/gat8profissional.framework.js",
-    "Build/gat8profissional.data",
-    "Build/gat8profissional.wasm",
+    "Build/gat8profissional.framework.js.br",
+    "Build/gat8profissional.data.br",
+    "Build/gat8profissional.wasm.br",
     "TemplateData/style.css"
 
 ];

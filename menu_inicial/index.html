@@ -932,9 +932,9 @@
 
             <div style="display: flex; flex-direction: column; justify-content: center; margin-top: 10px; align-items: center;">
                 <div class="btn-jogar-container">
-                    <button id="btn-jogar" class="btn btn-primario btn-carregando" onclick="clicarJogar()" disabled>
-                        <span class="spinner-carregando"></span>
-                        <span id="texto-btn-jogar">Baixando cena... 0%</span>
+                    <button id="btn-jogar" class="btn btn-primario" onclick="clicarJogar()">
+                        <span class="spinner-carregando" style="display:none;"></span>
+                        <span id="texto-btn-jogar">▶ JOGAR</span>
                     </button>
                 </div>
 
@@ -1294,10 +1294,7 @@
         }
 
         function clicarJogar() {
-            if (!unityProntaLocal) {
-                mostrarAvisoCarregamento();
-                return;
-            }
+            // A tela de carregamento agora aparece DEPOIS do clique, controlada pelo index pai.
             iniciarJogo(PERFIL_ATUAL);
         }
 
@@ -1532,7 +1529,10 @@
                 }
                 
                 // Manda a mensagem para a Unity carregar o perfil escolhido
-                escolherPerfil(perfilSelecionado);
+                // A tela de carregamento e a entrada no 3D ficam no index pai.
+                if (window.parent) {
+                    window.parent.postMessage({ tipo: 'jogar-agora', perfil: perfilSelecionado }, '*');
+                }
             }
         }
 
