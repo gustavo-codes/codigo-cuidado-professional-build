@@ -1259,9 +1259,7 @@
             const modalProgressoBar = document.getElementById('modal-progresso-bar');
             const modalProgressoNum = document.getElementById('modal-progresso-num');
             
-            if (textoBtn && !unityProntaLocal) {
-                textoBtn.innerText = 'Baixando cena... ' + porcentagem + '%';
-            }
+            // O progresso agora é mostrado na tela de carregamento do index pai, não no botão.
             if (modalProgressoBar) {
                 modalProgressoBar.style.width = porcentagem + '%';
             }
