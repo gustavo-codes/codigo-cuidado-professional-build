@@ -369,7 +369,6 @@
           window.unityInstance = unityInstance;
           window.unityPronta = true;
           notificarIframeConclusao();
-          iniciarAposCarregamento();
 
           window.AvisarVitoria = function(engineObj) {
               marcarRetornoDeMinijogo();
@@ -433,6 +432,9 @@
               }
           };
 
+          // DEPOIS de definir DefinePerfilDoJogador: se o jogador ja clicou
+          // JOGAR enquanto carregava, entra na cena agora.
+          iniciarAposCarregamento();
         }).catch((message) => {
           alert(message);
         });
