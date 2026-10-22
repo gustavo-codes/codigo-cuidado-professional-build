@@ -306,9 +306,18 @@
         if (!window.perfilPendente) return;
         var perfil = window.perfilPendente;
         window.perfilPendente = null;
-        esconderTelaCarregamento();
-        esconderMenu();
-        if (window.DefinePerfilDoJogador) window.DefinePerfilDoJogador(perfil);
+        // Garante que a barra termine visualmente em 100%: o evento final e o
+        // .then acontecem quase juntos e o frame de 100% nao chegaria a ser
+        // pintado antes do overlay sumir.
+        var barra = document.getElementById('tc-barra');
+        var texto = document.getElementById('tc-texto');
+        if (barra) { barra.classList.add('tc-final'); barra.style.width = '100%'; }
+        if (texto) texto.innerText = 'Preparando o ambiente 3D...';
+        setTimeout(function() {
+          esconderTelaCarregamento();
+          esconderMenu();
+          if (window.DefinePerfilDoJogador) window.DefinePerfilDoJogador(perfil);
+        }, 400);
       }
       window.addEventListener('message', (event) => {
         if (event.data && event.data.tipo === 'jogar-agora') {
