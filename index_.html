@@ -291,8 +291,9 @@
         }
       }
       function esconderMenu() {
-        var iframe = document.getElementById('iframe-principal');
-        if (iframe) iframe.style.display = 'none';
+        // Esconde o CONTAINER (fundo branco cobriria o canvas), nao so o iframe.
+        var container = document.getElementById('minijogo-container');
+        if (container) container.style.display = 'none';
       }
       function iniciarAposCarregamento() {
         if (!window.perfilPendente) return;
