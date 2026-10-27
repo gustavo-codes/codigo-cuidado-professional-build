@@ -277,10 +277,10 @@
       }
       // O loader da Unity estima o tamanho descomprimido como 2x o Content-Length,
       // mas a compressao real deste build e ~1.56x. O download entao "termina" com
-      // o callback em 0.9 * 54867069 / (2 * 35178630) = 0.70185 (70%). Normalizamos
+      // o callback em 0.9 * 54867183 / (2 * 35145694) = 0.70251 (70%). Normalizamos
       // para a barra chegar a 100% no fim real do download.
       // Se o build mudar, recalcular: 0.9 * tamanho_descomprimido / (2 * tamanho_br).
-      var PROGRESSO_FIM_DOWNLOAD = 0.7018516937697687;
+      var PROGRESSO_FIM_DOWNLOAD = 0.7025108780040025;
       function atualizarTelaCarregamento(progress) {
         var barra = document.getElementById('tc-barra');
         var texto = document.getElementById('tc-texto');

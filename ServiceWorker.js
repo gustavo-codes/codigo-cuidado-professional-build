@@ -1,4 +1,4 @@
-const cacheName = "UFC-Código Cuidado-0.1.4";
+const cacheName = "UFC-Código Cuidado-0.1.5";
 const contentToCache = [
     "Build/gat8profissional.loader.js",
     "Build/gat8profissional.framework.js.br",
@@ -10,7 +10,7 @@ const contentToCache = [
 
 self.addEventListener('install', function (e) {
     console.log('[Service Worker] Install');
-    
+
     e.waitUntil((async function () {
       const cache = await caches.open(cacheName);
       console.log('[Service Worker] Caching all: app shell and content');
