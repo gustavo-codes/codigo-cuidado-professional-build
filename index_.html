@@ -113,11 +113,18 @@
       @keyframes tc-pulso { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
       #tela-carregando .tc-texto { margin-top: 14px; font-weight: 700; font-size: 18px; }
       #tela-carregando .tc-voltar {
-        margin-top: 22px; background: #ffffff; color: #004357;
-        border: 3px solid #004357; padding: 10px 26px; font-size: 16px;
-        border-radius: 20px; cursor: pointer; font-weight: 700; font-family: sans-serif;
+        position: absolute; top: 22vh; left: 12vw;
+        width: 55px; height: 55px; padding: 0;
+        background-color: transparent; border: none; color: transparent;
+        background-image: url('menu_inicial/ui/a.png');
+        background-size: contain; background-repeat: no-repeat; background-position: center;
+        cursor: pointer; transition: transform 0.05s linear;
       }
-      #tela-carregando .tc-voltar:hover { background: #004357; color: #ffffff; }
+      #tela-carregando .tc-voltar:hover { transform: scale(1.08); background-color: transparent; }
+      #tela-carregando .tc-voltar:active { transform: scale(0.92); }
+      @media (max-width: 600px) {
+        #tela-carregando .tc-voltar { top: 15px; left: 15px; width: 45px; height: 45px; }
+      }
 
       @media screen and (max-height: 600px) and (orientation: landscape) {
         #game-wrapper {
@@ -159,7 +166,7 @@
         <img src="menu_inicial/images/Logo.png" alt="Código Cuidado" style="max-width: 250px; width: 60%; height: auto; margin-bottom: 25px; filter: drop-shadow(0 8px 15px rgba(0,67,87,0.15));" onerror="this.style.display='none';">
         <div class="tc-barra-vazia"><div class="tc-barra" id="tc-barra"></div></div>
         <div class="tc-texto" id="tc-texto">Baixando... 0%</div>
-        <button class="tc-voltar" id="tc-voltar" type="button">Voltar para a tela inicial</button>
+        <button class="tc-voltar" id="tc-voltar" type="button" aria-label="Voltar para a tela inicial" title="Voltar para a tela inicial"></button>
     </div>
 
     <div id="unity-container" class="unity-desktop">
@@ -292,27 +299,19 @@
           esconderTelaCarregamento();
         });
       }
-      // O loader da Unity estima o tamanho descomprimido como 2x o Content-Length,
-      // mas a compressao real deste build e ~1.56x. O download entao "termina" com
-      // o callback em 0.9 * 54867183 / (2 * 35145694) = 0.70251 (70%). Normalizamos
-      // para a barra chegar a 100% no fim real do download.
-      // Se o build mudar, recalcular: 0.9 * tamanho_descomprimido / (2 * tamanho_br).
-      var PROGRESSO_FIM_DOWNLOAD = 0.7025108780040025;
+      // O progresso do loader termina em 0.9 (o 0.1 restante e a fase de
+      // compilacao/inicializacao, que nao emite progresso). Mapeamos [0, 0.9]
+      // direto para [0%, 90%]: a barra so chega a 100% quando o download
+      // realmente acaba (iniciarAposCarregamento), funcionando igual com ou
+      // sem compressao na borda (Vercel/Cloudflare) e com o data em cache.
       function atualizarTelaCarregamento(progress) {
         var barra = document.getElementById('tc-barra');
         var texto = document.getElementById('tc-texto');
         if (!barra || !texto) return;
-        var ajustado = Math.min(1, progress / PROGRESSO_FIM_DOWNLOAD);
-        var pct = Math.round(Math.min(100, Math.max(0, ajustado * 100)));
-        if (ajustado >= 1) {
-          // Download terminou; a fase de compilação/inicialização não emite progresso.
-          barra.classList.add('tc-final');
-          barra.style.width = '100%';
-          texto.innerText = 'Preparando o ambiente 3D...';
-        } else {
-          barra.style.width = pct + '%';
-          texto.innerText = 'Baixando... ' + pct + '%';
-        }
+        var pct = Math.round(Math.min(90, Math.max(0, progress / 0.9 * 90)));
+        barra.style.width = pct + '%';
+        texto.innerText = 'Baixando... ' + pct + '%';
+      }
       }
       function esconderMenu() {
         // Esconde o CONTAINER (fundo branco cobriria o canvas), nao so o iframe.
@@ -343,10 +342,15 @@
         if (event.data && event.data.tipo === 'jogar-agora') {
           window.perfilPendente = event.data.perfil;
           window.carregamentoCancelado = false;
-          mostrarTelaCarregamento();
-          // Só entra no jogo se a Unity JÁ estiver pronta; senão, o .then do
-          // createUnityInstance chama iniciarAposCarregamento() quando terminar.
-          if (window.unityPronta) iniciarAposCarregamento();
+          // Unity já carregada (o jogador já entrou antes e voltou): pula a
+          // tela de carregamento e entra direto. Senão, mostra a tela e o .then
+          // do createUnityInstance chama iniciarAposCarregamento() ao terminar.
+          if (window.unityPronta) {
+            esconderTelaCarregamento();
+            iniciarAposCarregamento();
+          } else {
+            mostrarTelaCarregamento();
+          }
         }
       });
 
