@@ -1,4 +1,4 @@
-const cacheName = "UFC-Código Cuidado-0.1.6";
+const cacheName = "UFC-Código Cuidado-0.1.8";
 const contentToCache = [
     "TemplateData/style.css"
 ];

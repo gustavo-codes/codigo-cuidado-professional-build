@@ -10,20 +10,24 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <link rel="stylesheet" href="../minijogos.css">
+    <link rel="stylesheet" href="../plantao.css">
     <link rel="stylesheet" href="../acessibilidade.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <button class="btn-voltar" onclick="Engine.cancelar()">&#8592; Sair</button>
+    <button class="btn-voltar" onclick="Engine.cancelar()" title="Sair do minijogo">
+        <span aria-hidden="true">&#8592; Sair</span>
+        <span class="sr-only">Sair do minijogo e voltar ao menu principal</span>
+    </button>
 
     <div class="hud">
         <div class="hud-grupo">
-            <div class="hud-item" id="hud-tempo">⏳ 60s</div>
-            <div class="hud-item hud-btn" id="btn-pausa" onclick="Engine.togglePausa()">⏸️</div>
-            <div class="hud-item hud-btn" id="btn-mute" onclick="AudioSys.toggleMute()">🔊</div>
+            <div class="hud-item" id="hud-tempo"><span id="valor-tempo">60s</span><span class="sr-only">Tempo restante no relógio</span></div>
+            <div class="hud-item hud-btn" role="button" tabindex="0" id="btn-pausa" onclick="Engine.togglePausa()"><svg class="cc-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><span class="sr-only">Pausar o jogo</span></div>
+            <div class="hud-item hud-btn" role="button" tabindex="0" id="btn-mute" onclick="AudioSys.toggleMute()"><svg class="cc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span class="sr-only">Desativar o som</span></div>
         </div>
-        <div class="hud-item" id="hud-pontos-container">⭐ <span id="hud-pontos">0</span></div>
+        <div class="hud-item" id="hud-pontos-container"><span id="hud-pontos">0</span><span class="sr-only">Sua pontuação atual</span></div>
     </div>
 
     <div class="overlay" id="tela-intro">
@@ -52,7 +56,7 @@
                 </label>
                 <label class="assistencia-label" title="Tempo Extra (+50% tempo)">
                     <input type="checkbox" id="check-tempo-extra">
-                    <span class="assistencia-icone">+⏱️</span>
+                    <span class="assistencia-icone" aria-hidden="true"></span>
                 </label>
             </div>
 
@@ -88,15 +92,15 @@
 
     <div class="overlay oculto" id="tela-pausa">
         <div class="painel-central" style="position: relative; min-height: 200px;">
-            <button onclick="Engine.esconderOverlayPausa()" style="position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666;" title="Ocultar Painel">👁️</button>
+            <button onclick="Engine.esconderOverlayPausa()" style="position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666;" title="Ocultar Painel"><span aria-hidden="true"></span><span class="sr-only">Esconder painel de pausa para ler a tela congelada</span></button>
             <h1 style="font-size: 40px; color: var(--cor-tema-escuro); margin: 0;">PAUSADO</h1>
             <p style="color: #201e1e; margin-top: 10px;">O cronômetro e os alertas estão congelados.</p>
             <div class="botoes-coluna" style="margin-top: 20px;">
-                <button class="btn-acao" onclick="Engine.togglePausa()">▶️ Retomar Jogo</button>
-                <button class="btn-acao btn-secundario" onclick="Engine.iniciar()">🔄 Reiniciar Fase</button>
-                <button class="btn-acao btn-secundario" onclick="Engine.voltarAoMenu()">⏪ Introdução</button>
+                <button class="btn-acao" onclick="Engine.togglePausa()">Retomar jogo</button>
+                <button class="btn-acao btn-secundario" onclick="Engine.iniciar()">Reiniciar fase</button>
+                <button class="btn-acao btn-secundario" onclick="Engine.voltarAoMenu()">Introdução</button>
             </div>
-            <p style="color: #201e1e; font-size: 12px; margin-top: 15px;">Dica: Clique no 👁️ acima para ocultar o painel sem despausar.</p>
+            <p style="color: #201e1e; font-size: 12px; margin-top: 15px;">Dica: Clique no ícone do olho acima para ocultar o painel sem despausar.</p>
         </div>
     </div>
 

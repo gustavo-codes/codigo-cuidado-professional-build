@@ -13,6 +13,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="TemplateData/meususdigital.svg">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="stylesheet" href="plantao.css">
     <link rel="apple-touch-icon" href="TemplateData/meususdigital.png">
 
     <style>
@@ -95,36 +96,7 @@
           #unity-container { display: none !important; }
       }
 
-      /* Tela de carregamento exibida após clicar em JOGAR / escolher perfil */
-      #tela-carregando {
-        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh;
-        background-color: #E0FFF0; color: #004357; z-index: 100000;
-        flex-direction: column; justify-content: center; align-items: center;
-        text-align: center; padding: 30px; font-family: sans-serif; box-sizing: border-box;
-      }
-      #tela-carregando .tc-barra-vazia {
-        width: min(420px, 80vw); height: 22px; border: 3px solid #004357;
-        border-radius: 12px; background: #ffffff; overflow: hidden;
-      }
-      #tela-carregando .tc-barra {
-        width: 0%; height: 100%; background: #00ACDE; transition: width .25s ease;
-      }
-      #tela-carregando .tc-barra.tc-final { animation: tc-pulso 1.1s ease-in-out infinite; }
-      @keyframes tc-pulso { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
-      #tela-carregando .tc-texto { margin-top: 14px; font-weight: 700; font-size: 18px; }
-      #tela-carregando .tc-voltar {
-        position: absolute; top: 22vh; left: 12vw;
-        width: 55px; height: 55px; padding: 0;
-        background-color: transparent; border: none; color: transparent;
-        background-image: url('menu_inicial/ui/a.png');
-        background-size: contain; background-repeat: no-repeat; background-position: center;
-        cursor: pointer; transition: transform 0.05s linear;
-      }
-      #tela-carregando .tc-voltar:hover { transform: scale(1.08); background-color: transparent; }
-      #tela-carregando .tc-voltar:active { transform: scale(0.92); }
-      @media (max-width: 600px) {
-        #tela-carregando .tc-voltar { top: 15px; left: 15px; width: 45px; height: 45px; }
-      }
+      /* Tela de carregamento: estilos em plantao.css (#tela-carregando) */
 
       @media screen and (max-height: 600px) and (orientation: landscape) {
         #game-wrapper {
@@ -155,7 +127,7 @@
   <body>
     <div id="aviso-rotacao">
         <img src="menu_inicial/images/Logo.png" alt="Código Cuidado" style="max-width: 250px; width: 70%; height: auto; margin-bottom: 30px; filter: drop-shadow(0 8px 15px rgba(0,67,87,0.15));" onerror="this.style.display='none';">
-        <div style="font-size: 50px; margin-bottom: 20px;">🔄📱</div>
+        <div class="cc-girar" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
         <h2>Por favor, gire o seu aparelho</h2>
         <p>A experiência Código Cuidado foi desenhada para ser jogada com a tela na horizontal.</p>
         <p> <br> </p>
@@ -163,16 +135,45 @@
     </div>
 
     <div id="tela-carregando">
-        <img src="menu_inicial/images/Logo.png" alt="Código Cuidado" style="max-width: 250px; width: 60%; height: auto; margin-bottom: 25px; filter: drop-shadow(0 8px 15px rgba(0,67,87,0.15));" onerror="this.style.display='none';">
-        <div class="tc-barra-vazia"><div class="tc-barra" id="tc-barra"></div></div>
-        <div class="tc-texto" id="tc-texto">Baixando... 0%</div>
-        <button class="tc-voltar" id="tc-voltar" type="button" aria-label="Voltar para a tela inicial" title="Voltar para a tela inicial"></button>
+        <span class="cc-carregando__chip" aria-hidden="true"><span class="cc-carregando__cruz"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>UPA · PREPARANDO O PLANTÃO</span>
+        <button class="tc-voltar" id="tc-voltar" type="button" aria-label="Voltar para a tela inicial" title="Voltar para a tela inicial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="cc-carregando__painel">
+            <span class="cc-carregando__rotulo">ENTRANDO NA</span>
+            <img class="cc-carregando__logo" src="menu_inicial/images/Logo.png" alt="Código Cuidado" onerror="this.style.display='none';">
+            <svg class="cc-carregando__ecg" viewBox="0 0 520 70" aria-hidden="true"><path d="M0 40 H170 L188 40 L198 12 L212 64 L224 26 L234 40 H330 L344 40 L352 28 L362 40 H520"/></svg>
+            <div class="tc-barra-vazia" role="progressbar" aria-label="Carregando o jogo"><div class="tc-barra" id="tc-barra"></div></div>
+            <div class="tc-texto" id="tc-texto">Baixando... 0%</div>
+            <div class="cc-carregando__dica">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>
+                <div><b>Você sabia?</b><span id="tc-dica">Para a LGPD, informações de saúde são dados pessoais sensíveis e exigem cuidado redobrado.</span></div>
+            </div>
+        </div>
+        <script>
+          (function () {
+            var dicas = [
+              'Para a LGPD, informações de saúde são dados pessoais sensíveis e exigem cuidado redobrado.',
+              'Você tem direito de saber quem acessa seus dados e para qual finalidade.',
+              'Só devem ser coletados os dados realmente necessários para o atendimento.',
+              'Senhas e prontuários não se compartilham: cada profissional usa o próprio acesso.',
+              'Dados de crianças e adolescentes precisam de cuidado especial e consentimento dos responsáveis.',
+              'Vazou algum dado? O incidente deve ser comunicado e tratado o quanto antes.'
+            ];
+            var i = 0, el = document.getElementById('tc-dica');
+            setInterval(function () {
+              var t = document.getElementById('tela-carregando');
+              if (!el || !t || t.style.display !== 'flex') return;
+              i = (i + 1) % dicas.length;
+              el.style.opacity = 0;
+              setTimeout(function () { el.textContent = dicas[i]; el.style.opacity = 1; }, 300);
+            }, 6000);
+          })();
+        </script>
     </div>
 
-    <div id="unity-container" class="unity-desktop">
+        <div id="unity-container" class="unity-desktop">
       <div id="modal-pointer-lock" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #004357; font-family: sans-serif;">
           <div style="background: #F1FFF8; padding: 30px; border-radius: 15px; border: 4px solid #00ACDE; max-width: 400px;">
-              <div style="font-size: 40px; margin-bottom: 10px;">🖱️</div>
+              <div class="cc-aviso-mouse" aria-hidden="true" style="margin-bottom: 10px;"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#004357" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 7v4"/></svg></div>
               <h3 style="margin: 0 0 10px 0; font-weight: 900;">Clique para Explorar</h3>
               <p style="margin-bottom: 20px; font-weight: bold;">O ambiente 3D precisa da sua permissão para capturar o mouse.</p>
               <button onclick="document.getElementById('modal-pointer-lock').style.display='none'" style="background: #00ACDE; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 20px; cursor: pointer; font-weight: bold;">Entendi</button>

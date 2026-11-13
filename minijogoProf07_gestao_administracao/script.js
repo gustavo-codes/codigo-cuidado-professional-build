@@ -29,11 +29,11 @@ const DADOS_JOGO = {
         introDica: "Analise o pedido e decida se deve ser <strong>PERMITIDO</strong> ou <strong>PROIBIDO</strong>.",
         introMeta: "Meta de Aprovação: Classificar corretamente 75% dos casos.",
 
-        fimVitoriaTitulo: "Gestão Eficiente! ✅",
+        fimVitoriaTitulo: "Gestão Eficiente!",
         fimVitoriaMsg: "Excelente! Você demonstrou que entende como proteger a unidade de saúde e os pacientes, permitindo apenas os compartilhamentos legais e os direitos dos titulares.",
-        fimDerrotaTempoTitulo: "Acúmulo de Processos ❌",
+        fimDerrotaTempoTitulo: "Acúmulo de Processos",
         fimDerrotaTempoMsg: "O tempo acabou. Lembre-se de que a gestão de dados exige análise ágil para não paralisar as atividades nem violar direitos.",
-        fimDerrotaMetaTitulo: "Conformidade Comprometida ❌",
+        fimDerrotaMetaTitulo: "Conformidade Comprometida",
         fimDerrotaMetaMsg: "A sua precisão foi baixa. Você permitiu vazamentos ou bloqueou direitos legítimos dos pacientes.",
         
         baseLegal: "<strong>⚖️ Art. 7, 11 e 23 da LGPD:</strong> O tratamento pela administração foca em políticas públicas. É expressamente vedado o compartilhamento de dados de saúde para vantagem econômica."

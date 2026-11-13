@@ -33,11 +33,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Arraste os cartões</strong> para as caixas corretas com base na classificação da LGPD.",
         introMeta: "Meta de Aprovação: Classificar TUDO com {META}% de Precisão.",
         
-        fimVitoriaTitulo: "Triagem Concluída! ✅",
+        fimVitoriaTitulo: "Triagem Concluída!",
         fimVitoriaMsg: "Excelente! Você classificou TODOS os dados a tempo com precisão.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ❌",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou e você deixou dados sem triagem. A LGPD exige que TODOS os dados recebam o tratamento de segurança adequado.",
-        fimDerrotaMetaTitulo: "Meta Não Atingida ❌",
+        fimDerrotaMetaTitulo: "Meta Não Atingida",
         fimDerrotaMetaMsg: "Sua precisão não atingiu a meta exigida para evitar vazamentos na unidade de saúde.",
         baseLegal: "<strong>⚖️ Art. 5º, I, II e III da LGPD:</strong> A classificação correta em Pessoal, Sensível ou Anonimizado é o pilar que define os níveis de segurança, sigilo e riscos que a unidade de saúde deve aplicar a cada dado.",
 

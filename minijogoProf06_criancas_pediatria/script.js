@@ -26,11 +26,11 @@ const DADOS_JOGO = {
         introDica: "Avalie o estado da criança. Exija o responsável em consultas de rotina. Atenda imediatamente em caso de emergência.",
         introMeta: "Meta de Aprovação: Classificar corretamente 75% dos casos.",
         
-        fimVitoriaTitulo: "Atendimento Excelente! ✅",
+        fimVitoriaTitulo: "Atendimento Excelente!",
         fimVitoriaMsg: "Excelente! Você respeitou o melhor interesse das crianças, protegendo seus dados e garantindo assistência rápida nas urgências.",
-        fimDerrotaTempoTitulo: "Fila de Espera ❌",
+        fimDerrotaTempoTitulo: "Fila de Espera",
         fimDerrotaTempoMsg: "O tempo acabou. Lembre-se que em pediatria, agilidade na urgência e proteção de dados andam juntos.",
-        fimDerrotaMetaTitulo: "Conduta Inadequada ❌",
+        fimDerrotaMetaTitulo: "Conduta Inadequada",
         fimDerrotaMetaMsg: "A sua precisão foi baixa. Os dados de crianças exigem proteção reforçada e atenção obrigatória ao responsável legal.",
         
         baseLegal: "<strong>⚖️ Art. 14 da LGPD:</strong> O tratamento de dados de crianças deve ocorrer em seu melhor interesse, exigindo consentimento de um dos pais. Em urgências clínicas, a proteção à vida prevalece."

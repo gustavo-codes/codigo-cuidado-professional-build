@@ -28,9 +28,9 @@ const DADOS_JOGO = {
         introDica: "Arraste os cards flutuantes para dentro do <strong>Plano de Ação</strong> no centro. O jogo termina automaticamente quando você separar as 3 ações corretas.",
         introMeta: "Meta de Aprovação: Classificar as ações com 75% de Precisão.",
 
-        fimVitoriaTitulo: "Crise Contida! ✅",
+        fimVitoriaTitulo: "Crise Contida!",
         fimVitoriaMsg: "Você avaliou o incidente, registrou internamente e comunicou a ANPD e os titulares. Responder rapidamente reduz riscos.",
-        fimDerrotaTempoTitulo: "Omissão Detectada ❌",
+        fimDerrotaTempoTitulo: "Omissão Detectada",
         fimDerrotaTempoMsg: "O tempo acabou. Atrasar a resposta a um incidente aumenta severamente os danos e as multas aplicáveis.",
         
         baseLegal: "<strong>⚖️ Art. 48 da LGPD:</strong> Comunicação de incidente de segurança à ANPD e ao titular quando houver risco ou dano relevante."

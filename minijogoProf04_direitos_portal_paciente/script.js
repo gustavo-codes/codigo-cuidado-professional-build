@@ -28,11 +28,11 @@ const DADOS_JOGO = {
         introDica: "Analise os pedidos. <strong>Atenda</strong> as solicitações que garantem os Direitos dos Titulares. <strong>Negue</strong> pedidos abusivos ou perigosos.",
         introMeta: "Meta de Aprovação: Analisar as solicitações com 75% de Precisão.",
         
-        fimVitoriaTitulo: "Prontuário Concluído! ✅",
+        fimVitoriaTitulo: "Prontuário Concluído!",
         fimVitoriaMsg: "Excelente! Garantir os direitos do paciente, como o acesso e a correção de dados, faz parte essencial da LGPD na saúde.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ❌",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou e os pacientes ficaram sem resposta. A lei exige prazos razoáveis para atender solicitações.",
-        fimDerrotaMetaTitulo: "Direitos Violados ❌",
+        fimDerrotaMetaTitulo: "Direitos Violados",
         fimDerrotaMetaMsg: "A sua precisão demonstra desconformidade. Você negou direitos garantidos ou aceitou pedidos inseguros.",
         
         baseLegal: "<strong>⚖️ Art. 18 da LGPD:</strong> O paciente tem direito a acesso (II), correção de dados inexatos (III) e anonimização/eliminação de dados excessivos (IV)."

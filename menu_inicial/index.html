@@ -813,6 +813,8 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../plantao.css">
+    <link rel="stylesheet" href="plantao-menu.css">
 </head>
 <body>
 
@@ -823,6 +825,7 @@
     <div class="view" id="view-splash">
         <img src="images/Logo.png" alt="Código Cuidado" class="logo-img" onerror="this.style.display='none';">
         <div class="bar-bg"><div class="bar-fill"></div></div>
+        <svg class="cc-ecg" viewBox="0 0 300 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 24h110l10-14 12 30 12-36 10 20h146"/></svg>
     </div>
 
     <div class="view active" id="view-menu">
@@ -831,7 +834,7 @@
             <!-- HTML: Substituir o botão btn-instalar por este container -->
             <div class="instalar-container">
                 <!-- O botão original modificado para não ativar de imediato, apenas focar -->
-                <button class="btn-icone btn-instalar" id="btn-instalar" title="Instalar como App" tabindex="0">📱
+                <button class="btn-icone btn-instalar" id="btn-instalar" title="Instalar como App" tabindex="0">
                     <span class="sr-only">Instalar como App</span>
                 </button>
             </div>
@@ -844,19 +847,28 @@
                 <span class="sr-only">Código Cuidado.</span>
             </div>
 
+            <div class="menu-chip-perfil">
+                <div><span class="cc-label">Jogando como</span><strong>Profissional</strong></div>
+            </div>
+
             <div style="display: flex; flex-direction: column; justify-content: center; margin-top: 10px; align-items: center;">
                 <div class="btn-jogar-container">
                     <button id="btn-jogar" class="btn btn-primario" onclick="clicarJogar()">
                         <span class="spinner-carregando" style="display:none;"></span>
-                        <span id="texto-btn-jogar">▶ JOGAR</span>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
+                        <span id="texto-btn-jogar">Jogar</span>
                     </button>
                 </div>
 
-                <button class="btn btn-secundario" onclick="mudarTela('view-tutoriais')">Tutoriais</button>
-                <button class="btn-modo-leve" onclick="window.location.href = '../hub2D.html?perfil=profissional'">Acesso direto às fases</button>
+                <button class="btn btn-secundario" onclick="mudarTela('view-tutoriais')">Como jogar</button>
+                <button class="btn-modo-leve" onclick="window.location.href = '../hub2D.html?perfil=profissional'">Fases (modo leve)</button>
+            </div>
+
+            <div class="menu-rodape">
+                <button class="btn btn-secundario btn-flutuante" onclick="mudarTela('view-sobre')">Sobre o projeto</button>
+                <span>PET-Saúde Digital · UFC</span>
             </div>
         </div>
-        <button class="btn btn-secundario btn-flutuante" onclick="mudarTela('view-sobre')">Sobre o Projeto</button>
     </div>
 
     <!-- <div class="view" id="view-tutoriais">
@@ -886,19 +898,19 @@
             
             <div class="tutoriais-container">
                 <div class="tutorial-item">
-                    <h3>🏥 Escolha de Perfis</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></svg>Escolha de Perfis</h3>
                     <!-- <p>A experiência muda dependendo do seu papel. Como <strong>Profissional</strong>, você aprenderá as regras de triagem e manuseio de dados no dia a dia do atendimento. Como <strong>Paciente</strong>, você descobrirá como proteger seus direitos e informações pessoais.</p> -->
                     <p>A experiência muda dependendo do seu papel. Como <strong>Profissional</strong>, você aprenderá as regras de triagem e manuseio de dados no dia a dia do atendimento. Como <strong>Usuário do SUS</strong>, você descobrirá como proteger seus direitos e informações pessoais.</p>
                 </div>
 
                 <div class="tutorial-item">
-                    <h3>🕹️ Controles Básicos</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="15.5" cy="11.5" r="1" fill="currentColor"/><circle cx="17.5" cy="14" r="1" fill="currentColor"/></svg>Controles Básicos</h3>
                     <!-- <p>No <strong>Modo 2D</strong>, utilize o mouse ou o toque na tela para interagir com os elementos dos minijogos. Se estiver jogando o <strong>Modo 3D</strong>, utilize as setas do teclado (ou as teclas W, A, S, D) ou os joysticks na tela para caminhar pela UBS (Unidade Básica de Saúde) e interagir com os personagens. O mouse controla a orientação da câmera e permite selecionar elementos na tela.</p> -->
                     <p>Utilize o mouse ou o toque na tela para interagir com os elementos deste menu inicial e dos minijogos que são acessados a partir do ambiente 3D. No ambiente 3D, utilize as setas do teclado (ou as teclas W, A, S, D) para caminhar pela UBS (Unidade Básica de Saúde) e interagir com os personagens e os elementos da cena. O mouse controla a orientação da câmera e permite selecionar elementos na tela.</p>
                 </div>
 
                 <!-- <div class="tutorial-item">
-                    <h3>🖥️ Modos de Jogo</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Modos de Jogo</h3>
                     <p>Você pode escolher entre explorar o ambiente 3D completo ou ativar o <strong>Modo 2D Simples</strong> (na tela de seleção de perfil) para ir direto ao painel de fases, focando apenas nos desafios e minijogos práticos.</p>
                 </div> -->
 
@@ -924,28 +936,28 @@
 
             <div class="tutoriais-container">
                 <div class="tutorial-item">
-                    <h3>🎯 Objetivo</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>Objetivo</h3>
                     <p>Este jogo tem o objetivo de ensinar de forma acessível e inclusiva a importância da proteção de dados na saúde.</p>
                 </div>
 
                 <div class="tutorial-item">
-                    <h3>⚖️ LGPD</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 20h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg>LGPD</h3>
                     <p>A Lei Geral de Proteção de Dados (LGPD) estabelece regras para o uso e a proteção das informações pessoais, garantindo mais segurança, privacidade e transparência.
                     No contexto da saúde, ela reforça o cuidado com dados sensíveis, assegurando que informações dos cidadãos sejam tratadas com respeito e responsabilidade.</p>
                 </div>
 
                 <div class="tutorial-item">
-                    <h3>🏥 PET-Saúde Digital</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></svg>PET-Saúde Digital</h3>
                     <p>Esta iniciativa faz parte do Programa de Educação pelo Trabalho para a Saúde (PET-Saúde). É uma importante ação institucional voltada para a qualificação de profissionais e para o fortalecimento do Sistema Único de Saúde (SUS), com foco na transformação digital e na segurança das informações em saúde humana.</p>
                 </div>
                 
                 <div class="tutorial-item">
-                    <h3>🎓 Realização</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5M22 9v6"/></svg>Realização</h3>
                     <p>Um projeto orgulhosamente desenvolvido no âmbito da Universidade Federal do Ceará (UFC), promovendo a integração prática entre o ambiente acadêmico, a pesquisa tecnológica e a rede de saúde pública.</p>
                 </div>
 
                 <div class="tutorial-item">
-                    <h3>🤝 Equipe GAT8</h3>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="8" r="3"/><path d="M2.5 20c0-3.2 2.5-5.5 5.5-5.5s5.5 2.3 5.5 5.5M13 15c1-.4 2.1-.5 3.5-.5 3 0 5.5 2.3 5.5 5.5"/></svg>Equipe GAT8</h3>
                     <p>Desenvolvido por um grupo multidisciplinar que une tecnologia, design e cuidado. A Equipe GAT8 é formada por estudantes, professores e profissionais da saúde dedicados a criar soluções educativas inovadoras e engajadoras para a sociedade.</p>
                 </div>    
             </div>
@@ -1109,7 +1121,7 @@
 
     <div class="modal-foto-overlay" id="modal-aviso" onclick="fecharAviso(event)">
         <div class="menu-card" style="width: 90%; max-width: 400px; padding: 30px; text-align: center; cursor: default; min-height: auto;" onclick="event.stopPropagation()">
-            <div style="font-size: 45px; margin-bottom: 10px;">🚧</div>
+            <div class="cc-aviso-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20V9h14v11M5 13h14M9 9V5M15 9V5"/></svg></div>
             <h3 style="color: var(--idv-dark-blue); font-size: 24px; font-weight: 900; margin: 0 0 10px 0;">Em Breve!</h3>
             <p style="color: #555; font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 25px;">
                 <!-- O perfil <strong>Paciente</strong> está passando por aprimoramentos e estará disponível nas próximas versões.<br><br> -->
@@ -1123,7 +1135,7 @@
     <!-- ================= MODAL DE AVISO (COMPATIBILIDADE 3D / MOBILE) ================= -->
     <div class="modal-foto-overlay" id="modal-erro-3d" onclick="fecharErro3D(event)">
         <div class="menu-card" style="width: 90%; max-width: 400px; padding: 30px; text-align: center; cursor: default; min-height: auto;" onclick="event.stopPropagation()">
-            <div style="font-size: 45px; margin-bottom: 10px;">🖥️</div>
+            <div class="cc-aviso-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
             <h3 style="color: var(--idv-dark-blue); font-size: 24px; font-weight: 900; margin: 0 0 10px 0;">Acesso Restrito</h3>
             <p style="color: #555; font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 25px;">
                 O ambiente imersivo da UBS requer mais poder de processamento e foi otimizado para <strong>computadores</strong>.<br><br>
@@ -1136,7 +1148,7 @@
     <!-- ================= MODAL DE AVISO (CARREGANDO 3D) ================= -->
     <div class="modal-foto-overlay" id="modal-carregando" onclick="fecharCarregamento(event)">
         <div class="menu-card" style="width: 90%; max-width: 400px; padding: 30px; text-align: center; cursor: default; min-height: auto;" onclick="event.stopPropagation()">
-            <div style="font-size: 45px; margin-bottom: 10px;">⏳</div>
+            <div class="cc-aviso-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></div>
             <h3 style="color: var(--idv-dark-blue); font-size: 24px; font-weight: 900; margin: 0 0 10px 0;">Preparando a UBS...</h3>
             <p style="color: #555; font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 25px;">
                 O ambiente 3D ainda está sendo montado em segundo plano.<br><br>
@@ -1198,7 +1210,7 @@
                 btnJogar.disabled = false;
                 btnJogar.classList.remove('btn-carregando');
                 if (spinner) spinner.style.display = 'none';
-                if (textoBtn) textoBtn.innerText = '▶ JOGAR';
+                if (textoBtn) textoBtn.innerText = 'Jogar';
                 btnJogar.style.cursor = 'pointer';
             }
 
@@ -1558,7 +1570,7 @@
             </div>
 
             <div class="instrucao-so">
-                <strong>🤖 Android (Chrome):</strong><br>
+                <strong>Android (Chrome):</strong><br>
                 Toque no Menu <i class="fa-solid fa-ellipsis-vertical"></i> ou nos três pontos do navegador e escolha "Adicionar à tela inicial" ou "Instalar".
             </div>
         </div>

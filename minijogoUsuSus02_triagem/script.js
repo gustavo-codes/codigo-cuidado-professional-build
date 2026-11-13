@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Arraste os cartões</strong> para a categoria correta.",
         introMeta: "Meta de Aprovação: Classificar TUDO com {META}% de Precisão.",
 
-        fimVitoriaTitulo: "Triagem Concluída! ✅",
+        fimVitoriaTitulo: "Triagem Concluída!",
         fimVitoriaMsg: "Excelente! Na área da saúde, nem todos os dados têm o mesmo nível de proteção e você soube diferenciá-los perfeitamente.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ⏳",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou. Na triagem, o atendimento precisa ser seguro e ágil.",
-        fimDerrotaMetaTitulo: "Atenção aos Riscos ⚠️",
+        fimDerrotaMetaTitulo: "Atenção aos Riscos",
         fimDerrotaMetaMsg: "Você confundiu alguns dados sensíveis com dados comuns. Dados de saúde exigem rigor extremo para não expor a sua privacidade.",
         baseLegal: "<strong>⚖️ Art. 5º, II da LGPD:</strong> Dados sobre a saúde são classificados como 'dados pessoais sensíveis' e exigem o mais alto nível de segurança contra vazamentos.",
 

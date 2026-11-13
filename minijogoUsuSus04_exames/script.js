@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Leia a intenção</strong> e decida se a atitude é <strong>Segura</strong> ou <strong>Insegura</strong>.",
         introMeta: "Meta de Aprovação: Avaliar TUDO com {META}% de Precisão.",
 
-        fimVitoriaTitulo: "Compartilhamento Seguro! ✅",
+        fimVitoriaTitulo: "Compartilhamento Seguro!",
         fimVitoriaMsg: "Excelente! Você entende que compartilhar dados de saúde exige cautela e responsabilidade na escolha dos canais.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ⏳",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou antes que você tomasse todas as decisões de compartilhamento.",
-        fimDerrotaMetaTitulo: "Dados Expostos ⚠️",
+        fimDerrotaMetaTitulo: "Dados Expostos",
         fimDerrotaMetaMsg: "Atenção. Você considerou seguras algumas atitudes que expõem fortemente sua privacidade a pessoas não autorizadas.",
         baseLegal: "<strong>⚖️ Art. 6º da LGPD:</strong> O compartilhamento deve seguir o princípio da segurança e prevenção, ocorrendo apenas por meios protegidos.",
 

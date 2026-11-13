@@ -27,11 +27,11 @@ const DADOS_JOGO = {
         introDica: "Leia a situação médica e julgue se cada dado listado abaixo é realmente essencial para aquele momento clínico.",
         introMeta: "Meta de Aprovação: Analisar TODOS os dados com 75% de Precisão.",
         
-        fimVitoriaTitulo: "Atendimento Concluído! ✅",
+        fimVitoriaTitulo: "Atendimento Concluído!",
         fimVitoriaMsg: "Excelente! Você analisou todos os dados a tempo com precisão médica e segurança da informação.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ❌",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou e os pacientes ficaram sem atendimento. As decisões de privacidade devem ser ágeis na saúde.",
-        fimDerrotaMetaTitulo: "Meta Não Atingida ❌",
+        fimDerrotaMetaTitulo: "Meta Não Atingida",
         fimDerrotaMetaMsg: "Sua precisão demonstra acessos indevidos. Lembre-se do princípio da Necessidade.",
         
         baseLegal: "<strong>⚖️ Art. 6º, I e III da LGPD:</strong> Na assistência em saúde, só devem ser acedidos os dados estritamente necessários ao atendimento (Necessidade) e para a devida razão clínica (Finalidade).",
@@ -278,15 +278,15 @@ const Engine = {
         toast.className = '';
         if (status === 'erro_omissao') {
             toast.classList.add('erro-omissao');
-            titulo.innerText = "Informação Essencial ⚠️";
+            titulo.innerText = "Informação Essencial";
             texto.innerText = DADOS_JOGO.interface.txtErroOmissao;
         } else if (status === 'erro_grave') {
             toast.classList.add('erro-grave');
-            titulo.innerText = "Acesso Inadequado 🛑";
+            titulo.innerText = "Acesso Inadequado";
             texto.innerText = DADOS_JOGO.interface.txtErroGrave;
         } else if (status === 'erro_excesso') {
             toast.classList.add('erro-excesso');
-            titulo.innerText = "Acesso Indevido ❌";
+            titulo.innerText = "Acesso Indevido";
             texto.innerText = DADOS_JOGO.interface.txtErroExcesso;
         }
 

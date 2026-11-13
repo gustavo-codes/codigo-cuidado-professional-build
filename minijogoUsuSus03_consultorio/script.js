@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Arraste as fichas</strong> para a direita para aprovar dados anonimizados, ou para a esquerda para descartar dados que identificam você.",
         introMeta: "Meta de Aprovação: Avaliar TUDO com {META}% de Precisão.",
 
-        fimVitoriaTitulo: "Pesquisa Segura! ✅",
+        fimVitoriaTitulo: "Pesquisa Segura!",
         fimVitoriaMsg: "Excelente! Você entendeu que a proteção do paciente em estudos depende da retirada de identificadores.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ⏳",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou antes de você analisar todas as fichas de dados para a pesquisa.",
-        fimDerrotaMetaTitulo: "Privacidade Exposta ⚠️",
+        fimDerrotaMetaTitulo: "Privacidade Exposta",
         fimDerrotaMetaMsg: "Atenção. Alguns dados que você aprovou permitiam identificar você diretamente, comprometendo o sigilo.",
         baseLegal: "<strong>⚖️ Art. 5º, III da LGPD:</strong> A anonimização ocorre quando não há possibilidade de identificação do indivíduo a partir dos dados fornecidos.",
 

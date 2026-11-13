@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Avalie a situação</strong> e indique se ela exige ou não exige o seu consentimento.",
         introMeta: "Meta de Aprovação: Avaliar TUDO com {META}% de Precisão.",
 
-        fimVitoriaTitulo: "Jornada Concluída! 🌟",
+        fimVitoriaTitulo: "Jornada Concluída!",
         fimVitoriaMsg: "Excelente! Durante sua jornada na unidade de saúde, você aprendeu a identificar, proteger e compreender o uso dos seus dados pessoais.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ⏳",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou antes de você analisar todas as regras de consentimento.",
-        fimDerrotaMetaTitulo: "Cuidado com os Direitos ⚠️",
+        fimDerrotaMetaTitulo: "Cuidado com os Direitos",
         fimDerrotaMetaMsg: "Atenção. Você se confundiu em relação a quando a UBS é obrigada a pedir sua autorização formal.",
         baseLegal: "<strong>⚖️ Art. 7º e 11 da LGPD:</strong> O consentimento é importante, mas não é a única base legal para o uso de dados. Situações de emergência e proteção da vida dispensam essa exigência.",
 

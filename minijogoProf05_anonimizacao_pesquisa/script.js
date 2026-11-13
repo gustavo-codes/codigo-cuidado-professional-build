@@ -28,11 +28,11 @@ const DADOS_JOGO = {
         introDica: "Toque nas linhas da tabela para <span style='background:#212121;color:white;padding:2px 6px;border-radius:4px;font-size:12px;'>⬛ Censurar</span> o dado. Mantenha os dados úteis para a pesquisa e exporte.",
         introMeta: "Meta de Aprovação: Tratar todas as tabelas com 75% de Precisão.",
         
-        fimVitoriaTitulo: "Pesquisa Exportada! ✅",
+        fimVitoriaTitulo: "Pesquisa Exportada!",
         fimVitoriaMsg: "Excelente! Você exportou as tabelas a tempo, mantendo a integridade da pesquisa e protegendo os pacientes.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ❌",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou e a pesquisa está atrasada. O tratamento de dados deve ser eficiente e seguro.",
-        fimDerrotaMetaTitulo: "Meta Não Atingida ❌",
+        fimDerrotaMetaTitulo: "Meta Não Atingida",
         fimDerrotaMetaMsg: "Os seus erros demonstraram risco de vazamento de identidade.",
         
         baseLegal: "<strong>⚖️ Art. 5º, III da LGPD:</strong> Só há anonimização quando a pessoa não puder ser identificada por meios razoáveis. A proteção do paciente exige a retirada de identificadores diretos.",
@@ -271,11 +271,11 @@ const Engine = {
 
         if (status === 'erro_vazamento') {
             toast.classList.add('erro-vazamento');
-            titulo.innerText = "Risco de Identificação 🛑";
+            titulo.innerText = "Risco de Identificação";
             texto.innerText = DADOS_JOGO.interface.txtErroVazamento;
         } else if (status === 'erro_estatistica') {
             toast.classList.add('erro-estatistica');
-            titulo.innerText = "Perda de Dados Úteis ⚠️";
+            titulo.innerText = "Perda de Dados Úteis";
             texto.innerText = DADOS_JOGO.interface.txtErroEstatistica;
         }
 

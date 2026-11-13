@@ -2,6 +2,57 @@
 // PADRÃO OURO JS - Motor Base Global (Áudio e Ferramentas Comuns)
 // ============================================================================
 
+// ============================================================================
+// PLANTÃO - Ícones SVG da moldura (substituem emojis na UI). Só visual.
+// ============================================================================
+const PlantaoUI = {
+    svg: {
+        pausa: '<svg class="cc-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>',
+        play: '<svg class="cc-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>',
+        som: '<svg class="cc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
+        mudo: '<svg class="cc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9.5l5 5M22 9.5l-5 5"/></svg>',
+        estrela: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+    },
+    botaoPausa: function(btn, pausado) {
+        if (!btn) return;
+        btn.innerHTML = (pausado ? this.svg.play : this.svg.pausa) +
+            `<span class="sr-only">${pausado ? 'Retomar o jogo' : 'Pausar o jogo'}</span>`;
+    },
+    botaoSom: function(btn, mutado) {
+        if (!btn) return;
+        btn.innerHTML = (mutado ? this.svg.mudo : this.svg.som) +
+            `<span class="sr-only">${mutado ? 'Ativar o som' : 'Desativar o som'}</span>`;
+    },
+    tempo: function(el, segundos) {
+        if (!el) return;
+        el.innerHTML = `<span id="valor-tempo">${segundos}s</span><span class="sr-only">Tempo restante no relógio</span>`;
+    },
+    // Mesma regra de estrelas do hub2D.html (precisão + tempo restante) — só para exibir.
+    calcularEstrelas: function(precisao, tempo) {
+        if (precisao === 100) return tempo >= 30 ? 3 : 2;
+        if (precisao >= 80) return tempo >= 30 ? 2 : 1;
+        return tempo >= 30 ? 1 : 0;
+    },
+    estrelasFim: function(passou, precisao, tempo) {
+        const tela = document.getElementById('tela-fim');
+        const painel = tela ? tela.querySelector('.painel-central') : null;
+        if (!painel) return;
+        let box = painel.querySelector('.cc-fim-estrelas');
+        if (!box) {
+            box = document.createElement('div');
+            box.className = 'cc-fim-estrelas';
+            painel.insertBefore(box, painel.firstChild);
+        }
+        if (!passou) { box.hidden = true; return; }
+        const n = this.calcularEstrelas(precisao, Math.max(0, tempo));
+        box.hidden = false;
+        box.setAttribute('role', 'img');
+        box.setAttribute('aria-label', `${n} de 3 estrelas`);
+        box.innerHTML = [1, 2, 3].map(i =>
+            `<span class="cc-fim-estrela${i <= n ? ' cheia' : ''}${i === 2 ? ' meio' : ''}">${this.svg.estrela}</span>`).join('');
+    }
+};
+
 const AudioSys = {
     ctx: null, mutado: false,
     
@@ -23,7 +74,7 @@ const AudioSys = {
 
         const btnMute = document.getElementById('btn-mute');
         if (btnMute) {
-            btnMute.innerText = this.mutado ? "🔇" : "🔊";
+            PlantaoUI.botaoSom(btnMute, this.mutado);
 
             // Se ficou mutado, pode adicionar um estilo visual (opcional)
             if (this.mutado) {
@@ -352,7 +403,7 @@ const GlobalEngine = {
         if (toast) toast.classList.remove('show');
         if (alerta) alerta.classList.remove('show');
         
-        if (btnPausa) btnPausa.innerText = "⏸️";
+        PlantaoUI.botaoPausa(btnPausa, false);
         if (areaJogo) {
             areaJogo.style.display = displayType; 
             areaJogo.classList.remove('pausado');
@@ -396,7 +447,7 @@ const GlobalEngine = {
         this.tempoRestante--;
         
         const hudTempo = document.getElementById('hud-tempo');
-        if (hudTempo) hudTempo.innerText = `⏳ ${this.tempoRestante}s`;
+        PlantaoUI.tempo(hudTempo, this.tempoRestante);
         
         if (this.tempoToastRestante > 0) {
             this.tempoToastRestante--;
@@ -471,11 +522,11 @@ const GlobalEngine = {
                 tituloText = DADOS_JOGO.interface.fimDerrotaTempoTitulo;
                 msgHtml = DADOS_JOGO.interface.fimDerrotaTempoMsg;
             } else if (motivo === 'meta' || motivo === 'precisao') {
-                tituloText = DADOS_JOGO.interface.fimDerrotaMetaTitulo || "Precisão Baixa ❌";
+                tituloText = DADOS_JOGO.interface.fimDerrotaMetaTitulo || "Precisão Baixa";
                 let baseMsg = DADOS_JOGO.interface.fimDerrotaMetaMsg || "Sua precisão foi insuficiente.";
                 msgHtml = `${baseMsg} <br>Sua precisão foi de <strong>${precisao}%</strong> (Mínimo exigido: ${DADOS_JOGO.metaAprovacao}%).`;
             } else if (motivo === 'limite_erros') {
-                tituloText = "Limite de Erros ❌";
+                tituloText = "Limite de Erros";
                 msgHtml = `O vazamento fugiu do controle após demasiadas ações incorretas.`; // A sua precisão caiu para <strong>${precisao}%</strong>.`;
                 if (DADOS_JOGO.maxErros !== undefined) {
                     msgHtml = `Você cometeu <strong>${DADOS_JOGO.maxErros} erros</strong> e o vazamento fugiu do controle.`; // A sua precisão caiu para ${precisao}%.`;
@@ -487,7 +538,7 @@ const GlobalEngine = {
                 tituloText = DADOS_JOGO.interface.fimDerrotaDBTitulo;
                 msgHtml = DADOS_JOGO.interface.fimDerrotaDBMsg;
             } else {
-                tituloText = "Falha ❌";
+                tituloText = "Falha";
                 msgHtml = "Você não atingiu os objetivos da fase.";
             }
         }
@@ -506,7 +557,7 @@ const GlobalEngine = {
         const spanTaxa = document.getElementById('final-taxa');
         if (spanTaxa) {
             spanTaxa.innerText = `${precisao}%`;
-            spanTaxa.style.color = passou ? "#2e7d32" : "#c62828";
+            spanTaxa.style.color = passou ? "var(--cc-ok-ink)" : "var(--cc-bad-ink)";
         }
 
         // Hook para injetar dados específicos da fase (ex: 3/3 na Fase 9)
@@ -518,14 +569,14 @@ const GlobalEngine = {
         
         if (titulo) {
             titulo.innerText = tituloText;
-            titulo.style.color = passou ? "var(--cor-tema-escuro)" : "#c62828";
+            titulo.dataset.resultado = passou ? 'ok' : 'falhou';
         }
         
         if (msg) {
             msg.innerHTML = msgHtml;
             // AVISO GLOBAL DO TEMPO EXTRA
             if (passou && this.registroInvalido) {
-                msg.innerHTML += "<br><span style='color: #d32f2f; font-size: 12px; font-weight: bold;'>⚠️ Tempo Extra Ativado: Este resultado não será registrado como recorde!</span>";
+                msg.innerHTML += "<br><span class='cc-aviso-tempo-extra'>Tempo Extra Ativado: Este resultado não será registrado como recorde!</span>";
             }
         }
 
@@ -545,6 +596,8 @@ const GlobalEngine = {
                 `;
             }
         }
+
+        PlantaoUI.estrelasFim(passou, precisao, this.tempoRestante);
 
         // 4. Exibe Tela
         const areaJogo = document.getElementById('area-jogo');
@@ -580,7 +633,7 @@ const GlobalEngine = {
         if (!toast) return;
         toast.className = '';
         toast.classList.add(tipo === 'sucesso' ? 'sucesso' : 'erro');
-        document.getElementById('toast-titulo').innerText = tipo === 'sucesso' ? "Correto ✅" : "Atenção 🛑";
+        document.getElementById('toast-titulo').innerText = tipo === 'sucesso' ? "Correto" : "Atenção";
         document.getElementById('toast-texto').innerText = mensagem;
         toast.classList.add('show');
         this.tempoToastRestante = 10;
@@ -604,7 +657,7 @@ const GlobalEngine = {
         const hudTempo = document.getElementById('hud-tempo');
         const hudPontos = document.getElementById('hud-pontos');
         
-        if (hudTempo) hudTempo.innerText = `⏳ ${this.tempoRestante}s`;
+        PlantaoUI.tempo(hudTempo, this.tempoRestante);
         if (hudPontos) hudPontos.innerText = this.pontuacao; 
         
         if (destacar && hudPtsContainer) {
@@ -632,7 +685,7 @@ const GlobalEngine = {
             if (areaJogo) areaJogo.classList.add('pausado'); // Trava cliques no CSS
             clearInterval(this.intervaloTempo);
 
-            if (btnPausa) btnPausa.innerText = "▶️";
+            PlantaoUI.botaoPausa(btnPausa, true);
             if (telaPausa) telaPausa.classList.remove('oculto');
 
             // Se estiver arrastando uma carta no momento da pausa, cancela o movimento
@@ -661,7 +714,7 @@ const GlobalEngine = {
                 this.intervaloTempo = setInterval(() => this.tickTempo(), 1000); 
 
                 if (btnPausa) {
-                    btnPausa.innerText = "⏸️";
+                    PlantaoUI.botaoPausa(btnPausa, false);
                     btnPausa.classList.remove('destaque-pausa'); // NOVO: Desliga a animação
                 }
                 if (telaPausa) telaPausa.classList.add('oculto');
@@ -710,7 +763,7 @@ const GlobalEngine = {
         
         if (telaFim) telaFim.classList.add('oculto'); 
         if (telaPausa) telaPausa.classList.add('oculto'); 
-        if (btnPausa) btnPausa.innerText = "⏸️";
+        PlantaoUI.botaoPausa(btnPausa, false);
         if (telaIntro) telaIntro.classList.remove('oculto');
 
         // Remove listener de resize se existir na fase (ex: Fase 9)
@@ -745,3 +798,9 @@ const GlobalEngine = {
         }, 300);
     }
 };
+// PLANTÃO: botões do HUD são <div role="button">; Enter/Espaço disparam o clique.
+document.addEventListener('keydown', function (e) {
+    const alvo = e.target;
+    if (!alvo || !alvo.classList || !alvo.classList.contains('hud-btn')) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alvo.click(); }
+});

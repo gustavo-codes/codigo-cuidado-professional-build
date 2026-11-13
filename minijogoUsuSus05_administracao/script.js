@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "<strong>Leia a atitude</strong> e decida se é uma postura <strong>Arriscada</strong> ou <strong>Segura</strong> para os seus dados.",
         introMeta: "Meta de Aprovação: Avaliar TUDO com {META}% de Precisão.",
 
-        fimVitoriaTitulo: "Controle Total! ✅",
+        fimVitoriaTitulo: "Controle Total!",
         fimVitoriaMsg: "Excelente! Você entende que tem o direito de acessar, corrigir e acompanhar o uso dos seus dados de forma ativa.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ⏳",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou antes que você tomasse todas as decisões na Central de Privacidade.",
-        fimDerrotaMetaTitulo: "Privacidade em Risco ⚠️",
+        fimDerrotaMetaTitulo: "Privacidade em Risco",
         fimDerrotaMetaMsg: "Atenção. Você aprovou atitudes que colocam seus dados em perigo. É seu direito saber como suas informações são usadas e controlá-las.",
         baseLegal: "<strong>⚖️ Art. 18 da LGPD:</strong> O titular tem o direito de obter informações, acessar e corrigir seus dados a qualquer momento, garantindo o controle sobre sua privacidade.",
 

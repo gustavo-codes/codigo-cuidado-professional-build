@@ -1,0 +1,275 @@
+/* ==================================================================
+   PLANTÃO — Tela inicial (Fase B do GUIA_UI_PLANTAO.md)
+   Arquivo IDÊNTICO nos 3 builds. Linkado depois do <style> do menu e
+   de ../plantao.css. Só visual: IDs/classes usados pelo JS mantidos.
+   ================================================================== */
+
+body, html { font-family: var(--cc-font-body); color: var(--cc-ink); background-color: #fff; }
+button:focus-visible, .card-perfil:focus-visible, .membro-card:focus-visible { outline: 4px solid var(--cc-upa); outline-offset: 3px; }
+
+/* ---------- Cartões das telas secundárias ---------- */
+.menu-card {
+    background: #fff; color: var(--cc-ink);
+    border: 3px solid var(--cc-ink); border-radius: 28px;
+    box-shadow: 0 10px 0 var(--cc-ink);
+    padding: 44px 48px 36px;
+}
+.view.active .menu-card { animation: cc-pop-in .18s var(--cc-ease-pop) both; }
+
+/* Título das telas (Como jogar / Sobre / Perfil) */
+#titulo-jogar-como { text-transform: none; margin: 4px 0 22px; }
+.jogar-label { font-family: var(--cc-font-title); font-weight: 700; font-size: 34px; letter-spacing: 0; color: var(--cc-ink); }
+.jogar-titulo { font-family: var(--cc-font-title); color: var(--cc-ink); text-shadow: none; }
+.titulo-view { font-family: var(--cc-font-title); font-weight: 700; text-transform: none; font-size: 30px; color: var(--cc-ink); }
+
+/* ---------- Botões ---------- */
+.btn {
+    font-family: var(--cc-font-title); text-transform: none; letter-spacing: 0;
+    border: 3px solid var(--cc-ink); border-radius: 16px; min-height: 52px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform .08s ease, box-shadow .08s ease, background-color .15s;
+}
+.btn-primario {
+    color: #fff; background: var(--cc-action); font-weight: 700; font-size: 24px;
+    box-shadow: inset 0 -5px 0 var(--cc-action-edge), 0 5px 0 var(--cc-ink);
+}
+.btn-primario:hover { background: #0A86AF; }
+.btn-primario:active { transform: translateY(5px); box-shadow: inset 0 -2px 0 var(--cc-action-edge), 0 0 0 var(--cc-ink); }
+.btn-primario svg { width: 22px; height: 22px; flex-shrink: 0; }
+.btn-secundario {
+    color: var(--cc-ink); background: #fff; font-weight: 600; font-size: 19px;
+    border-color: var(--cc-ink); box-shadow: 0 5px 0 var(--cc-ink);
+}
+.btn-secundario:hover { background: var(--cc-mint); }
+.btn-secundario:active { transform: translateY(5px); box-shadow: 0 0 0 var(--cc-ink); }
+.btn-secundario svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+/* Botões redondos de ícone (voltar, setas) — troca as imagens PNG por SVG */
+.btn-icone {
+    width: 54px; height: 54px; border-radius: 50%; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: #fff; color: var(--cc-ink);
+    border: 3px solid var(--cc-ink); box-shadow: 0 4px 0 var(--cc-ink);
+    transition: transform .08s ease, box-shadow .08s ease;
+}
+.btn-icone:hover { transform: none; background-color: var(--cc-mint); }
+.btn-icone:active { transform: translateY(4px); box-shadow: 0 0 0 var(--cc-ink); }
+.btn-voltar, .btn-seta-local { background-image: none !important; }
+.btn-voltar::before, .btn-seta-local::before {
+    content: ""; width: 26px; height: 26px; background: currentColor;
+    -webkit-mask: var(--cc-ico-back) center / contain no-repeat; mask: var(--cc-ico-back) center / contain no-repeat;
+}
+#btn-eq-next::before { transform: scaleX(-1); }
+.btn-voltar { left: 22px; top: 22px; }
+
+/* ---------- Tela principal: painel lateral fixo (prancheta 10) ---------- */
+#view-menu .menu-card.menu-horizontal {
+    position: absolute; top: 0; left: 0; bottom: 0; margin: 0;
+    width: 470px; max-width: 100%; max-height: none; height: 100%;
+    border-radius: 0; border-width: 0 3px 0 0; box-shadow: 8px 0 0 rgba(0, 67, 87, .18);
+    padding: 40px 44px 28px; gap: 14px;
+    flex-direction: column; align-items: stretch; justify-content: flex-start;
+    overflow-y: auto; animation: cc-painel-entra .28s var(--cc-ease-pop) both;
+}
+@keyframes cc-painel-entra { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+#view-menu .imagem-acessivel { display: flex; justify-content: center; }
+#view-menu .imagem-acessivel .logo-img { width: 340px !important; max-width: 100%; margin: 0 0 8px !important; filter: none; }
+#view-menu .menu-card > div[style] { margin-top: 0 !important; align-items: stretch !important; gap: 14px; }
+#view-menu .btn-jogar-container { margin-bottom: 0; align-items: stretch; }
+#view-menu .btn { width: 100%; margin: 0; padding: 0 20px; }
+#view-menu #btn-jogar { min-height: 70px; font-size: 26px; border-radius: 18px; box-shadow: inset 0 -6px 0 var(--cc-action-edge), 0 6px 0 var(--cc-ink); }
+#view-menu #btn-jogar:active { box-shadow: inset 0 -2px 0 var(--cc-action-edge), 0 0 0 var(--cc-ink); }
+.spinner-carregando { border-color: rgba(255, 255, 255, .35) !important; border-top-color: #fff !important; }
+
+/* "Acesso direto às fases" vira botão secundário com ícone de grade */
+.btn-modo-leve {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 54px; margin: 0; padding: 0 20px;
+    font-family: var(--cc-font-title); font-weight: 600; font-size: 19px; color: var(--cc-ink);
+    background: #fff; border: 3px solid var(--cc-ink); border-radius: 16px; box-shadow: 0 5px 0 var(--cc-ink);
+}
+.btn-modo-leve::before {
+    content: ""; width: 22px; height: 22px; flex-shrink: 0; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='14' width='7' height='7' rx='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='14' width='7' height='7' rx='1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.btn-modo-leve:hover { background: var(--cc-mint); color: var(--cc-ink); border: 3px solid var(--cc-ink); box-shadow: 0 5px 0 var(--cc-ink); }
+.btn-modo-leve:active { transform: translateY(5px); box-shadow: 0 0 0 var(--cc-ink); }
+
+/* Chip "Jogando como" (builds de perfil único) */
+.menu-chip-perfil {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: var(--cc-paper); border: 2px solid var(--cc-sky-line); border-radius: 14px; padding: 8px 14px;
+}
+.menu-chip-perfil .cc-label { font-size: 12px; }
+.menu-chip-perfil strong { display: block; font-family: var(--cc-font-title); font-weight: 600; font-size: 19px; }
+
+/* Rodapé do painel */
+.menu-rodape {
+    margin-top: auto; padding-top: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    font-size: 13px; color: var(--cc-muted);
+}
+#view-menu .menu-rodape .btn-flutuante {
+    width: auto; min-height: 44px; margin: 0; padding: 0 4px;
+    background: transparent; border: 0; box-shadow: none;
+    font-family: var(--cc-font-body); font-weight: 700; font-size: 14px; color: var(--cc-action); text-decoration: underline;
+}
+#view-menu .menu-rodape .btn-flutuante:hover { color: var(--cc-ink); background: transparent; }
+#view-menu .menu-rodape .btn-flutuante:active { transform: none; }
+
+/* Botão instalar: ícone redondo no canto superior direito */
+#view-menu .instalar-container { position: fixed; left: auto; bottom: auto; top: 24px; right: 28px; }
+.btn-instalar { font-size: 0 !important; width: 52px; height: 52px; }
+.btn-instalar::before {
+    content: ""; width: 24px; height: 24px; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 10l5 5 5-5M5 20h14'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 10l5 5 5-5M5 20h14'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.instalar-tooltip { background: #fff; border: 3px solid var(--cc-ink); border-radius: 18px; box-shadow: 0 6px 0 var(--cc-ink); }
+.instalar-tooltip h4 { font-family: var(--cc-font-title); font-weight: 700; color: var(--cc-ink); }
+.instalar-tooltip p { color: var(--cc-muted); }
+.instrucao-so { background: var(--cc-paper); border: 2px solid var(--cc-sky-line); color: var(--cc-ink); }
+.instrucao-so i { color: var(--cc-action); }
+.btn-abrir-cheia { min-height: 44px; background: var(--cc-action); border: 3px solid var(--cc-ink); border-radius: 14px; box-shadow: 0 4px 0 var(--cc-ink); font-family: var(--cc-font-title); font-size: 15px; }
+.btn-abrir-cheia:hover { background: var(--cc-ink); }
+
+/* Personagem à direita: não fica sob o painel */
+.character-layer { right: 4%; }
+
+/* ---------- Como jogar / Sobre ---------- */
+.tutoriais-container, .sobre-container { gap: 12px; }
+.tutorial-item, .sobre-box {
+    background: var(--cc-paper); color: var(--cc-ink); text-align: left;
+    border: 2px solid var(--cc-sky-line); border-radius: 18px; padding: 16px 20px;
+}
+.tutorial-item h3, .sobre-box h3 { font-family: var(--cc-font-title); font-weight: 700; font-size: 20px; gap: 12px; }
+.tutorial-item h3 svg, .sobre-box h3 svg {
+    width: 40px; height: 40px; flex-shrink: 0; padding: 7px; box-sizing: border-box;
+    background: var(--cc-sky); border: 3px solid var(--cc-ink); border-radius: 12px; color: var(--cc-ink);
+}
+.tutorial-item p, .sobre-box p { font-weight: 400; font-size: 16px; line-height: 1.5; color: var(--cc-ink); }
+
+/* ---------- Equipe ---------- */
+.divisor-equipe { font-family: var(--cc-font-hud); letter-spacing: 2px; color: var(--cc-action); }
+.membro-card { background: #fff; border: 3px solid var(--cc-ink); border-radius: 16px; box-shadow: 0 4px 0 var(--cc-ink); }
+.membro-card:hover { transform: translateY(-4px); box-shadow: 0 8px 0 var(--cc-ink); border-color: var(--cc-ink); }
+.membro-foto { background-color: var(--cc-sky); border-bottom: 3px solid var(--cc-ink); }
+.membro-nome { font-family: var(--cc-font-title); font-weight: 600; color: var(--cc-ink); }
+.membro-subtitulo { font-family: var(--cc-font-body); color: var(--cc-muted); }
+.btn-fechar-zoom { min-height: 48px; font-family: var(--cc-font-title); text-transform: none; border-radius: 16px; background: #fff; box-shadow: 0 5px 0 var(--cc-ink); }
+.modal-foto-img { border: 3px solid #fff; border-radius: 20px; box-shadow: 0 8px 0 var(--cc-ink); }
+
+/* ---------- Perfil ---------- */
+.card-perfil { background: #fff; border: 3px solid var(--cc-ink); border-radius: 24px; box-shadow: 0 6px 0 var(--cc-ink); }
+.card-perfil:hover { border-color: var(--cc-ink); transform: translateY(-6px); box-shadow: 0 0 0 6px var(--cc-sky), 0 12px 0 var(--cc-ink); }
+.card-perfil:active { transform: translateY(4px); box-shadow: 0 0 0 var(--cc-ink); }
+.foto-perfil { background-color: var(--cc-sky); border-bottom: 3px solid var(--cc-ink); }
+.nome-perfil { font-family: var(--cc-font-title); font-weight: 700; color: var(--cc-ink); }
+
+/* Toggles (prancheta 02) */
+.opcoes-dificuldade { background: var(--cc-paper); border: 2px solid var(--cc-sky-line); border-radius: 18px; }
+.switch-textos span { font-family: var(--cc-font-title); font-weight: 600; }
+.switch-textos small { color: var(--cc-muted); }
+.slider { width: 58px; height: 32px; background: var(--cc-track); border: 3px solid var(--cc-ink); box-sizing: border-box; }
+.slider:before { width: 22px; height: 22px; left: 2px; bottom: 2px; background: #fff; border: 3px solid var(--cc-ink); box-sizing: border-box; box-shadow: 0 2px 0 var(--cc-ink); }
+input:checked + .slider { background: var(--cc-upa); }
+input:checked + .slider:before { transform: translateX(26px); }
+
+/* ---------- Modais de aviso ---------- */
+.modal-foto-overlay { background: var(--cc-scrim); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.modal-foto-overlay .menu-card h3 { font-family: var(--cc-font-title); font-weight: 700 !important; }
+.modal-foto-overlay .menu-card p { font-weight: 400 !important; color: var(--cc-muted) !important; }
+.cc-aviso-ico {
+    width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--cc-sky); border: 3px solid var(--cc-ink); color: var(--cc-ink);
+}
+.cc-aviso-ico svg { width: 36px; height: 36px; }
+
+/* ---------- Splash (prancheta 01) ---------- */
+#view-splash { background: var(--cc-mint); }
+#view-splash .logo-img { filter: none; }
+.bar-bg { height: 22px; background: var(--cc-track); border: 3px solid var(--cc-ink); border-radius: 999px; box-sizing: border-box; }
+.bar-fill { background: var(--cc-upa); box-shadow: inset 0 -5px 0 var(--cc-upa-edge); }
+.cc-ecg { width: 300px; height: 48px; margin-top: 18px; color: var(--cc-action); }
+.cc-ecg path { stroke-dasharray: 300; animation: cc-ecg 1.6s linear infinite; }
+
+/* ---------- Celular (painel vira folha inferior) ---------- */
+@media (max-width: 767px) {
+    .menu-card { padding: 40px 20px 26px; width: calc(100% - 32px); border-radius: 24px; }
+    .jogar-label { font-size: 26px; }
+    #view-menu .menu-card.menu-horizontal {
+        top: auto; bottom: 0; left: 0; right: 0; width: 100%; height: auto; max-height: 78dvh;
+        border-width: 3px 0 0; border-radius: 28px 28px 0 0; box-shadow: 0 -6px 0 rgba(0, 67, 87, .18);
+        padding: 22px 20px calc(18px + env(safe-area-inset-bottom, 0px)); gap: 12px;
+        animation-name: cc-folha-sobe;
+    }
+    @keyframes cc-folha-sobe { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+    #view-menu .imagem-acessivel .logo-img { width: 210px !important; }
+    #view-menu #btn-jogar { min-height: 62px; font-size: 24px; }
+    #view-menu .instalar-container { top: 16px; right: 16px; }
+    .character-layer { right: 50%; transform: translateX(50%); height: 50vh; bottom: 30vh; }
+    .perfil-container { gap: 16px; }
+    .card-perfil { width: 46%; height: 240px; }
+    .btn-voltar { left: 14px; top: 14px; width: 46px; height: 46px; }
+}
+
+/* ---------- Celular deitado ---------- */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    .menu-card { padding: 16px 20px; border-radius: 20px; box-shadow: 0 6px 0 var(--cc-ink); }
+    #view-menu .menu-card.menu-horizontal { width: 340px; padding: 16px 22px; gap: 8px; flex-direction: column; border-radius: 0; box-shadow: 6px 0 0 rgba(0, 67, 87, .18); }
+    #view-menu .imagem-acessivel .logo-img { width: 170px !important; margin: 0 !important; }
+    #view-menu .menu-card > div[style] { gap: 8px; }
+    #view-menu #btn-jogar { min-height: 50px; font-size: 20px; }
+    #view-menu .btn, .btn-modo-leve { min-height: 44px; font-size: 16px; }
+    .btn-modo-leve { margin-top: 0; padding: 0 14px; }
+    .menu-rodape { padding-top: 4px; }
+    .jogar-label { font-size: 22px; }
+    .btn-icone { width: 44px; height: 44px; }
+}
+
+/* ---------- Tela principal em telas grandes (≥ 1000×600) ----------
+   A prancheta é 1280×720; --u = 1px da prancheta na tela atual, então o
+   painel cresce junto com a tela em vez de ficar pequeno com um vão no meio.
+   O bloco logo+botões fica centrado na altura e o rodapé preso embaixo.
+   O fundo passa a ocupar só a área à direita do painel, mostrando a
+   recepcionista, com o balão de fala da prancheta 10. */
+@media (min-width: 1000px) and (min-height: 600px) {
+    #view-menu { --u: min(calc(100vw / 1280), calc(100vh / 720)); }
+    #view-menu .menu-card.menu-horizontal {
+        width: calc(470 * var(--u)); padding: calc(40 * var(--u)) calc(44 * var(--u)) calc(76 * var(--u));
+        gap: calc(14 * var(--u)); justify-content: center;
+    }
+    #view-menu .imagem-acessivel .logo-img { width: calc(340 * var(--u)) !important; margin-bottom: calc(18 * var(--u)) !important; }
+    #view-menu .menu-card > div[style] { gap: calc(16 * var(--u)); }
+    #view-menu #btn-jogar { min-height: calc(76 * var(--u)); font-size: calc(28 * var(--u)); border-radius: calc(18 * var(--u)); }
+    #view-menu #btn-jogar svg { width: calc(24 * var(--u)); height: calc(24 * var(--u)); }
+    #view-menu .btn, #view-menu .btn-modo-leve { min-height: calc(56 * var(--u)); font-size: calc(20 * var(--u)); border-radius: calc(16 * var(--u)); }
+    #view-menu .btn-modo-leve::before { width: calc(22 * var(--u)); height: calc(22 * var(--u)); }
+    #view-menu .menu-chip-perfil strong { font-size: calc(19 * var(--u)); }
+    #view-menu .menu-rodape {
+        position: absolute; left: calc(44 * var(--u)); right: calc(44 * var(--u)); bottom: calc(28 * var(--u));
+        margin: 0; padding: 0; font-size: calc(13 * var(--u));
+    }
+    #view-menu .menu-rodape .btn-flutuante { font-size: calc(14 * var(--u)); min-height: 44px; }
+
+    body:has(#view-menu.active) .bg-imagem-real {
+        left: calc(470 * min(calc(100vw / 1280), calc(100vh / 720)));
+        width: calc(100% - 470 * min(calc(100vw / 1280), calc(100vh / 720)));
+        object-position: 18% center;
+    }
+    /* Balão da recepcionista (decorativo) */
+    #view-menu::after {
+        content: "Bom dia! Pronto para cuidar dos dados dos pacientes?";
+        position: fixed; z-index: 2;
+        left: calc(470 * var(--u) + (100vw - 470 * var(--u)) * 0.36); top: 31%;
+        max-width: calc(280 * var(--u)); padding: calc(12 * var(--u)) calc(18 * var(--u));
+        font-family: var(--cc-font-title); font-weight: 600; font-size: calc(18 * var(--u)); line-height: 1.3; color: var(--cc-ink);
+        background: #fff; border: 3px solid var(--cc-ink); border-radius: calc(20 * var(--u)); border-bottom-left-radius: 4px;
+        box-shadow: 0 5px 0 var(--cc-ink);
+        animation: cc-pop-in .25s .35s var(--cc-ease-pop) both;
+        pointer-events: none;
+    }
+}
+@media (prefers-reduced-motion: reduce) { #view-menu::after { animation: none; } }

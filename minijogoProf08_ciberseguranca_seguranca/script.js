@@ -23,11 +23,11 @@ const DADOS_JOGO = {
         introDica: "Leia a situação e escolha a <strong>Conduta Correta de Segurança</strong> para proteger o sistema.",
         introMeta: "Meta de Aprovação: Responder as 5 questões com 75% de Precisão.",
         
-        fimVitoriaTitulo: "Sistema Protegido! ✅",
+        fimVitoriaTitulo: "Sistema Protegido!",
         fimVitoriaMsg: "Excelente! Você implementou políticas sólidas de segurança, reduzindo drasticamente o risco de vazamentos.",
-        fimDerrotaTempoTitulo: "Auditoria Incompleta ❌",
+        fimDerrotaTempoTitulo: "Auditoria Incompleta",
         fimDerrotaTempoMsg: "O tempo acabou. A demora na aplicação de segurança deixa o sistema vulnerável a ataques.",
-        fimDerrotaMetaTitulo: "Falhas de Segurança ❌",
+        fimDerrotaMetaTitulo: "Falhas de Segurança",
         fimDerrotaMetaMsg: "A sua precisão foi baixa. Você permitiu práticas que colocam os dados dos pacientes em risco.",
         
         baseLegal: "<strong>⚖️ Art. 46 da LGPD:</strong> Os agentes de tratamento devem adotar medidas de segurança, técnicas e administrativas para proteger os dados pessoais."

@@ -28,11 +28,11 @@ const DADOS_JOGO = {
         introDica: "Leia as opções de conduta no Terminal. Selecione a ação que garante os direitos do paciente de forma simples e rápida.",
         introMeta: "Meta de Aprovação: Processar os chamados com 75% de Precisão.",
         
-        fimVitoriaTitulo: "Turno Concluído! ✅",
+        fimVitoriaTitulo: "Turno Concluído!",
         fimVitoriaMsg: "Excelente! Você processou as solicitações respeitando os direitos dos titulares de forma gratuita e facilitada.",
-        fimDerrotaTempoTitulo: "Tempo Esgotado ❌",
+        fimDerrotaTempoTitulo: "Tempo Esgotado",
         fimDerrotaTempoMsg: "O tempo acabou e os chamados acumularam. Lembre-se de que a revogação de consentimento deve ser um processo ágil.",
-        fimDerrotaMetaTitulo: "Conformidade Baixa ❌",
+        fimDerrotaMetaTitulo: "Conformidade Baixa",
         fimDerrotaMetaMsg: "Sua precisão demonstra que você criou barreiras indevidas ou ignorou os direitos dos pacientes.",
         
         baseLegal: "<strong>⚖️ Art. 8º, § 5º da LGPD:</strong> A revogação do consentimento deve ser efetuada por procedimento gratuito e facilitado.",
@@ -310,11 +310,11 @@ const Engine = {
         
         if (acertou) {
             toast.classList.add('sucesso');
-            titulo.innerText = "Conduta Aprovada ✅";
+            titulo.innerText = "Conduta Aprovada";
             texto.innerText = DADOS_JOGO.interface.txtAcerto;
         } else {
             toast.classList.add('erro');
-            titulo.innerText = "Conduta Bloqueada 🛑";
+            titulo.innerText = "Conduta Bloqueada";
             texto.innerText = DADOS_JOGO.interface.txtErroBarreira;
         }
 
