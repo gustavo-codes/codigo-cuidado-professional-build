@@ -295,7 +295,9 @@
 #tela-carregando .tc-voltar svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-height: 560px) {
     .cc-carregando__chip { display: none; }
-    .cc-carregando__painel { gap: 10px; padding: 18px 26px; border-radius: 22px; }
+    /* mais estreito para não cobrir o botão de voltar no canto */
+    .cc-carregando__painel { gap: 10px; padding: 18px 26px; border-radius: 22px; width: min(560px, calc(100% - 170px)); }
+    #tela-carregando .tc-voltar { z-index: 2; }
     .cc-carregando__logo { width: 190px; }
     .cc-carregando__ecg { height: 36px; }
     .cc-carregando__dica { padding: 10px 12px; }
