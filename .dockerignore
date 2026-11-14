@@ -1,0 +1,14 @@
+# Nao vai para a imagem (e portanto nao fica publico no site).
+# Sem isto, "COPY . /usr/share/nginx/html" publicava a pasta .git inteira
+# (historico do repositorio, e no Coolify o token do clone no .git/config).
+# nginx.conf, index_.html e ServiceWorker.canonical.js ficam: o Dockerfile usa.
+.git
+.gitignore
+.gitattributes
+.dockerignore
+Dockerfile
+*.md
+.vscode
+.idea
+.DS_Store
+Thumbs.db
