@@ -373,6 +373,9 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
 
+        // Celular: renderiza no máximo a 1,5x (iPhone usa 3x = 4x mais pixels, muito pesado)
+        if (!/qualidade=alta/.test(location.search)) config.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+
         document.querySelector("#unity-container").className = "unity-mobile";
         var gameWrapper = document.querySelector("#game-wrapper");
         gameWrapper.className = "unity-mobile";
