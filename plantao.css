@@ -360,3 +360,11 @@
     button.btn-audio-config { height: 36px; font-size: 16px; }
     body:has(#lista-fases) .btn-trocar-perfil { min-height: 40px; padding: 0 14px; }
 }
+
+/* Celular deitado (19,5:9): minijogos ocupam a tela toda em vez da caixa 16:9 com faixas
+   (os minijogos já se adaptam à largura). No PC continua 16:9. */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    #minijogo-container iframe#iframe-principal {
+        aspect-ratio: auto; width: 100%; height: 100%; max-width: none; max-height: none; box-shadow: none;
+    }
+}
