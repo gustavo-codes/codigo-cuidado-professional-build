@@ -1175,6 +1175,22 @@
         let unityProntaLocal = false;
         let progressoLocal = 0;
 
+        // Linha discreta sob o botão Jogar enquanto a Unity carrega em segundo plano.
+        // No celular a preparação final trava a página por alguns segundos: assim o
+        // último quadro pintado diz "Preparando o jogo…" em vez de parecer travado.
+        function statusCarregamento(texto) {
+            let el = document.getElementById('status-carregamento');
+            const alvo = document.querySelector('#view-menu .btn-jogar-container');
+            if (!el && alvo && texto) {
+                el = document.createElement('div');
+                el.id = 'status-carregamento'; el.className = 'cc-status-carregamento'; el.setAttribute('aria-live', 'polite');
+                alvo.appendChild(el);
+            }
+            if (!el) return;
+            if (!texto) { el.remove(); return; }
+            el.textContent = texto;
+        }
+
         function atualizarProgressoUnity(progresso) {
             if (unityProntaLocal) return;
             progressoLocal = progresso;
@@ -1186,6 +1202,7 @@
             const modalProgressoNum = document.getElementById('modal-progresso-num');
             
             // O progresso agora é mostrado na tela de carregamento do index pai, não no botão.
+            statusCarregamento(porcentagem >= 90 ? 'Preparando o jogo…' : 'Baixando o jogo… ' + porcentagem + '%');
             if (modalProgressoBar) {
                 modalProgressoBar.style.width = porcentagem + '%';
             }
@@ -1201,6 +1218,7 @@
         function unityCarregou() {
             if (unityProntaLocal) return;
             unityProntaLocal = true;
+            statusCarregamento(null);
             
             const btnJogar = document.getElementById('btn-jogar');
             const textoBtn = document.getElementById('texto-btn-jogar');

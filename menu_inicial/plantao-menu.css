@@ -301,3 +301,11 @@ input:checked + .slider:before { transform: translateX(26px); }
     body:has(#view-menu.active) .bg-imagem-real { left: var(--lat-fundo, min(44vw, 360px)); width: calc(100% - min(44vw, 360px)); object-position: 22% center; }
     body:has(#view-menu.active) .character-layer { display: none; }
 }
+
+/* Status do carregamento sob o botão Jogar */
+.cc-status-carregamento {
+    margin-top: 6px; text-align: center; font-family: var(--cc-font-hud); font-weight: 700;
+    font-size: 12px; letter-spacing: 1.5px; color: var(--cc-action);
+}
+.cc-status-carregamento::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--cc-upa); animation: cc-tc-pulso 1s ease-in-out infinite; vertical-align: 1px; }
+@keyframes cc-tc-pulso { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
