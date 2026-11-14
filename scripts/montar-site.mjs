@@ -9,7 +9,7 @@
 //  3. grava no index.html o tamanho de cada arquivo do Build/ (TAMANHOS_UNITY) e ajusta o loader da
 //     Unity para usar esse número na barra de carregamento: assim ela fica exata em qualquer host,
 //     com ou sem Content-Length (proxy comprimindo), sem depender de header do servidor
-//  4. ServiceWorker.canonical.js -> dist/ServiceWorker.js
+//  4. ServiceWorker.canonical.js -> dist/ServiceWorker.js, com cacheName que muda sozinho a cada mudança no site
 //  5. confere tudo e FALHA (exit 1) se algo não bater, para não publicar site quebrado
 //
 // Os arquivos .unityweb (brotli) são servidos COMO ESTÃO, sem Content-Encoding: com
@@ -95,10 +95,28 @@ for (const c of new Set(citados)) {
 ok(citados.some((c) => c.endsWith('.data.unityweb')), 'index_.html não cita o .data.unityweb (ainda aponta para .br?)');
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 
-// 4. Service worker
-fs.copyFileSync(path.join(raiz, 'ServiceWorker.canonical.js'), path.join(dist, 'ServiceWorker.js'));
+// 4. Service worker: o cacheName ganha um código calculado do conteúdo de TODO o site publicado.
+//    Mudou qualquer arquivo (CSS, JS, imagem, minijogo, build) -> código novo -> o navegador instala o
+//    service worker novo, que apaga o cache antigo (evento activate). Sem mudança, o código é o mesmo.
+//    O ServiceWorker.canonical.js do repositório não muda; só a cópia em dist/.
+const hashSite = crypto.createHash('sha1');
+const percorrer = (pasta) => {
+  for (const item of fs.readdirSync(pasta, { withFileTypes: true }).sort((x, y) => (x.name < y.name ? -1 : 1))) {
+    const caminho = path.join(pasta, item.name);
+    if (item.isDirectory()) { percorrer(caminho); continue; }
+    hashSite.update(path.relative(dist, caminho).split(path.sep).join('/'));
+    hashSite.update(fs.readFileSync(caminho));
+  }
+};
+percorrer(dist);
+const versaoSite = hashSite.digest('hex').slice(0, 12);
+let sw = fs.readFileSync(path.join(raiz, 'ServiceWorker.canonical.js'), 'utf8');
+let trocasSw = 0;
+sw = sw.replace(/(const cacheName\s*=\s*")([^"]*)(")/, (m, a1, nomeCache, a3) => { trocasSw++; return `${a1}${nomeCache}-${versaoSite}${a3}`; });
+ok(trocasSw === 1, 'ServiceWorker.canonical.js sem a linha const cacheName = "..."');
+fs.writeFileSync(path.join(dist, 'ServiceWorker.js'), sw);
 
 const mb = (n) => (n / 1048576).toFixed(1) + ' MB';
-console.log(`Site montado em dist/ — ${nome}, versão ${versao}`);
+console.log(`Site montado em dist/ — ${nome}, versão do jogo ${versao}, versão do site (cache do service worker) ${versaoSite}`);
 for (const [f, t] of Object.entries(tamanhos)) console.log(`  Build/${f}  ${mb(t)}`);
 console.log(`  download do jogo: ${mb(Object.values(tamanhos).reduce((a, b) => a + b, 0) - (tamanhos[nome + '.astc.data.unityweb'] || 0))} (sem o pacote ASTC de teste)`);
