@@ -333,7 +333,7 @@
     body:has(#lista-fases) .hub-barra { min-height: 0; padding: 6px 12px; gap: 12px; flex-direction: row; align-items: center; }
     body:has(#lista-fases) .perfil-label { display: none; }
     body:has(#lista-fases) .perfil-tipo { font-size: 18px; }
-    body:has(#lista-fases) .btn-trocar-perfil { min-height: 32px; padding: 0 10px; font-size: 13px; }
+    body:has(#lista-fases) .btn-trocar-perfil { min-height: 40px; padding: 0 12px; font-size: 14px; }
     body:has(#lista-fases) .btn-icone { width: 42px; height: 42px; }
     #lista-fases.container-fases {
         display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity;
@@ -351,4 +351,10 @@
     body:has(#lista-fases) .hub-progresso { flex: 0 1 220px; }
     .hub-proxima { flex-direction: row; align-items: center; gap: 12px; }
     .hub-proxima .cc-btn { width: auto; }
+}
+
+/* Alvos de toque mínimos no celular (≥ 40 px) */
+@media (pointer: coarse) {
+    button.btn-audio-config { height: 36px; font-size: 16px; }
+    body:has(#lista-fases) .btn-trocar-perfil { min-height: 40px; padding: 0 14px; }
 }
