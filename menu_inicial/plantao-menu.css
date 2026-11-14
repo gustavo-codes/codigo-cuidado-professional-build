@@ -273,3 +273,31 @@ input:checked + .slider:before { transform: translateX(26px); }
     }
 }
 @media (prefers-reduced-motion: reduce) { #view-menu::after { animation: none; } }
+
+/* ---------- Celular deitado (altura < 600): painel lateral compacto, tudo cabe sem rolar ----------
+   Vem por último para valer sobre a "folha inferior" de telas estreitas. */
+@media (orientation: landscape) and (max-height: 600px) {
+    #view-menu { --lat: min(44vw, 360px); }
+    #view-menu .menu-card.menu-horizontal {
+        top: 0; bottom: 0; left: 0; right: auto; height: 100%; max-height: none; margin: 0;
+        width: var(--lat); border-width: 0 3px 0 0; border-radius: 0; box-shadow: 6px 0 0 rgba(0, 67, 87, .18);
+        padding: max(10px, env(safe-area-inset-top)) 18px calc(8px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left));
+        gap: 2.2vh; justify-content: center; overflow-y: auto; animation-name: cc-painel-entra;
+    }
+    #view-menu .imagem-acessivel .logo-img { width: auto !important; height: 21vh; max-width: 80%; margin: 0 !important; }
+    #view-menu .menu-card > div[style] { gap: 2.2vh; margin: 0 !important; }
+    #view-menu .menu-chip-perfil { padding: 3px 10px; border-radius: 12px; }
+    #view-menu .menu-chip-perfil .cc-label { font-size: 10px; }
+    #view-menu .menu-chip-perfil strong { font-size: 15px; }
+    #view-menu #btn-jogar { min-height: max(46px, 13vh); font-size: 21px; border-radius: 14px; }
+    #view-menu .btn, #view-menu .btn-modo-leve { min-height: max(40px, 10.5vh); font-size: 16px; border-radius: 13px; padding: 0 12px; }
+    #view-menu .menu-rodape { position: static; margin-top: 0; padding-top: 0; font-size: 11px; }
+    #view-menu .menu-rodape .btn-flutuante { min-height: 32px; font-size: 12px; }
+    /* Instalar: canto superior direito do painel, pequeno, sem cobrir o logo */
+    #view-menu .instalar-container { position: absolute; top: 8px; right: 8px; left: auto; bottom: auto; }
+    #view-menu .btn-instalar { width: 40px; height: 40px; }
+    #view-menu .btn-instalar::before { width: 20px; height: 20px; }
+    /* Fundo à direita do painel: a recepcionista aparece */
+    body:has(#view-menu.active) .bg-imagem-real { left: var(--lat-fundo, min(44vw, 360px)); width: calc(100% - min(44vw, 360px)); object-position: 22% center; }
+    body:has(#view-menu.active) .character-layer { display: none; }
+}
