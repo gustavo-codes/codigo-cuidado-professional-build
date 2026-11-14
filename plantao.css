@@ -324,3 +324,31 @@
 #minijogo-container iframe[src*="menu_inicial"] {
     aspect-ratio: auto; width: 100%; height: 100%; max-width: none; max-height: none; box-shadow: none;
 }
+
+/* ---------- Hub de fases no celular deitado: uma fileira de cards com rolagem lateral ----------
+   Cabeçalho compacto + cards em carrossel + barra "Próxima fase" fina: tudo cabe sem rolar a página. */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    body:has(#lista-fases) { padding-bottom: 0; overflow-y: hidden; }
+    body:has(#lista-fases) header { margin-top: max(6px, env(safe-area-inset-top)); padding: 0 calc(10px + env(safe-area-inset-right)) 0 calc(10px + env(safe-area-inset-left)); gap: 8px; }
+    body:has(#lista-fases) .hub-barra { min-height: 0; padding: 6px 12px; gap: 12px; flex-direction: row; align-items: center; }
+    body:has(#lista-fases) .perfil-label { display: none; }
+    body:has(#lista-fases) .perfil-tipo { font-size: 18px; }
+    body:has(#lista-fases) .btn-trocar-perfil { min-height: 32px; padding: 0 10px; font-size: 13px; }
+    body:has(#lista-fases) .btn-icone { width: 42px; height: 42px; }
+    #lista-fases.container-fases {
+        display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity;
+        margin: 14px 0 0; padding: 12px calc(14px + env(safe-area-inset-left)) 10px; max-width: none;
+        -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    }
+    #lista-fases.container-fases::-webkit-scrollbar { display: none; }
+    #lista-fases .level-wrap { flex: 0 0 118px; scroll-snap-align: start; padding-top: 0 !important; }
+    #lista-fases .level-card { height: calc(100dvh - 190px); min-height: 118px; max-height: 170px; }
+    .hub-proxima { padding: 6px 8px 6px 16px; bottom: max(8px, env(safe-area-inset-bottom)); }
+    .hub-proxima .cc-btn { min-height: 44px; }
+    /* vale também abaixo de 720px de largura (iPhone SE deitado) */
+    body:has(#lista-fases) .hub-barra { flex-wrap: nowrap; }
+    body:has(#lista-fases) .hub-metas { width: auto; flex: 1; justify-content: flex-end; }
+    body:has(#lista-fases) .hub-progresso { flex: 0 1 220px; }
+    .hub-proxima { flex-direction: row; align-items: center; gap: 12px; }
+    .hub-proxima .cc-btn { width: auto; }
+}

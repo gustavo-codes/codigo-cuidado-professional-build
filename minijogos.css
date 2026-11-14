@@ -610,3 +610,14 @@ body #toast-feedback.erro-grave h3, body #toast-feedback.erro-excesso h3 { color
 /* Alerta de combo (laranja solto nos style.css locais) -> erro do sistema */
 body #alerta-combo { background: var(--cc-bad); color: #fff; border: 3px solid var(--cc-ink); border-radius: 18px; box-shadow: 0 5px 0 var(--cc-ink); font-family: var(--cc-font-title); font-weight: 600; }
 #txt-intro-defin { padding-bottom: 24px; }
+
+/* ---------- Celular deitado: botões do painel (Iniciar / Sair / Jogar de novo) sempre visíveis ----------
+   O conteúdo rola por cima; a fileira de botões fica grudada no rodapé do painel. */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    .painel-central .botoes-coluna, .painel-central .botoes-linha {
+        position: sticky; bottom: -14px; z-index: 20;
+        margin: 4px -18px -14px; padding: 8px 18px 10px;
+        background: #fff; box-shadow: 0 -10px 12px -10px rgba(0, 67, 87, .35);
+    }
+    .painel-central .btn-acao { min-height: 44px; }
+}
