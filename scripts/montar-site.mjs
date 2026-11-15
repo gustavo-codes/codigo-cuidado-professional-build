@@ -84,6 +84,12 @@ let html = fs.readFileSync(path.join(raiz, 'index_.html'), 'utf8');
 const antes = html;
 html = html.replace(/\?v=[0-9A-Za-z]+/g, '?v=' + versao);
 ok(html !== antes && html.includes('?v=' + versao), 'index_.html sem ?v= nas URLs do Build/');
+// productVersion = versão base + versão do build: a cada build a Unity apaga do IndexedDB do navegador o build
+// anterior (o cache dela só limpa entradas de outro productVersion; sem isso acumulava até 1 GB por jogador)
+let trocasVersao = 0;
+html = html.replace(/(productVersion:\s*")([^"+]*)(?:\+[0-9a-f]+)?(")/, (m, a1, base, a3) => { trocasVersao++; return `${a1}${base}+${versao}${a3}`; });
+ok(trocasVersao === 1, 'index_.html sem productVersion: "..." na config da Unity');
+ok(/cacheControl:\s*function/.test(html), 'index_.html sem cacheControl na config da Unity (o F5 baixaria o .wasm de novo)');
 const script = `<script>window.TAMANHOS_UNITY=${JSON.stringify(tamanhos)};</script>`;
 ok(/<head[^>]*>/i.test(html), 'index_.html sem <head>');
 html = html.replace(/<head[^>]*>/i, (m) => m + '\n    ' + script);

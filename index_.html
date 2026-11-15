@@ -266,6 +266,11 @@
         companyName: "UFC",
         productName: "Código Cuidado Profissional",
         productVersion: "0.1.2",
+        // Cache da Unity (IndexedDB): os arquivos do Build/ têm ?v=<versão> na URL, que muda a cada build,
+        // então podem ser guardados e usados sem perguntar ao servidor ("immutable"). Sem isto só o .data
+        // era guardado e o F5 baixava o .wasm (~9 MB) de novo. O montar-site.mjs troca o productVersion
+        // a cada build, e a Unity apaga do navegador o build anterior.
+        cacheControl: function (url) { return /(^|\/)Build\//.test(url) ? "immutable" : "no-store"; },
         showBanner: unityShowBanner,
       };
 
